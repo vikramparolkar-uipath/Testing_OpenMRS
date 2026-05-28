@@ -1,0 +1,13 @@
+﻿{
+  "Name": "Gender Tab",
+  "Type": "Element",
+  "TaxonomyType": "Tab",
+  "Id": "ZTHrf-W7zkat0nahaluR0A",
+  "Reference": "5UaRw1uKPkm0x-nmw-YXmg/ZTHrf-W7zkat0nahaluR0A",
+  "ParentRef": "5UaRw1uKPkm0x-nmw-YXmg/kemKTioyS0SVuiB0fbI3FA",
+  "Created": "2025-09-25T16:38:32.8830358Z",
+  "Updated": "2025-09-25T16:38:32.8830358Z",
+  "CreatedBy": [
+    "UiPath.Platform, Version=25.4.0.0, Culture=neutral, PublicKeyToken=null"
+  ]
+}

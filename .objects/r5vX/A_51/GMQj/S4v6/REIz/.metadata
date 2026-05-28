@@ -1,0 +1,13 @@
+﻿{
+  "Name": "Registration Desk",
+  "Type": "Element",
+  "TaxonomyType": "Input",
+  "Id": "REIz3E9d7Uep447ri1hCNA",
+  "Reference": "5UaRw1uKPkm0x-nmw-YXmg/REIz3E9d7Uep447ri1hCNA",
+  "ParentRef": "5UaRw1uKPkm0x-nmw-YXmg/S4v6LzffkEqEsLGp-Kp-_Q",
+  "Created": "2025-09-25T15:24:14.7103072Z",
+  "Updated": "2025-09-25T15:24:14.7103072Z",
+  "CreatedBy": [
+    "UiPath.Platform, Version=25.4.0.0, Culture=neutral, PublicKeyToken=null"
+  ]
+}

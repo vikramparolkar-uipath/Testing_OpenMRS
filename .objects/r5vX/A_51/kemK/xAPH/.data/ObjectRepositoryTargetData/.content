@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-16"?>
+<ObjectRepositoryTargetData ContentHash="ZDhVVFwGN0SrBdDTQ7hSvA" Reference="5UaRw1uKPkm0x-nmw-YXmg/xAPHIqdCe0ezdHpTtmIJ8A" xmlns="http://schemas.uipath.com/workflow/activities/uix" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <ObjectRepositoryTargetData.Data>
+    <TargetAnchorable x:Key="TargetAnchorable" BrowserURL="uilabsopenmrs.westeurope.cloudapp.azure.com/openmrs/registrationapp/registerPatient.page" ContentHash="aKbcVJtTskeM88buQo2v4Q" DesignTimeRectangle="488, 314, 215, 34" ElementType="ListItem" FullSelectorArgument="&lt;webctrl css-selector='body&amp;gt;div&amp;gt;div&amp;gt;form&amp;gt;ul&amp;gt;li&amp;gt;ul&amp;gt;li' parentid='formBreadcrumb' tag='LI' /&gt;" Guid="4284bf10-aafb-4c30-b9d5-d94afe5552a5" Reference="5UaRw1uKPkm0x-nmw-YXmg/xAPHIqdCe0ezdHpTtmIJ8A" ScopeSelectorArgument="&lt;html app='msedge.exe' title='OpenMRS Electronic Medical Record' /&gt;" SearchSteps="Selector" Version="V6" Visibility="Interactive" WaitForReadyArgument="None">
+      <imageRef attrName="InformativeScreenshot" originalValue="b9efa5298a9ce9711ce19ccb504fb2bf.png" xmlns="">0e3WxeyiTKku2_1jNVRzUaQ</imageRef>
+    </TargetAnchorable>
+    <x:String x:Key="ActivityType">Click</x:String>
+  </ObjectRepositoryTargetData.Data>
+</ObjectRepositoryTargetData>

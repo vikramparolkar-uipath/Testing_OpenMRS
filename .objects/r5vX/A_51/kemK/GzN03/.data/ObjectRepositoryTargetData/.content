@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-16"?>
+<ObjectRepositoryTargetData ContentHash="O2JnS_GbVUmJU5ozgO9VIg" xmlns="http://schemas.uipath.com/workflow/activities/uix" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <ObjectRepositoryTargetData.Data>
+    <TargetAnchorable x:Key="TargetAnchorable" BrowserURL="uilabsopenmrs.westeurope.cloudapp.azure.com/openmrs/registrationapp/registerPatient.page" DesignTimeRectangle="1391, 517, 52, 37" DesignTimeScaleFactor="1" ElementType="Button" FullSelectorArgument="&lt;webctrl id='next-button' tag='BUTTON' /&gt;" FuzzySelectorArgument="&lt;webctrl id='next-button' tag='BUTTON' type='button' class='confirm right' aaname='  ' matching:id='fuzzy' fuzzylevel:id='0.0' matching:class='fuzzy' fuzzylevel:class='0.0' matching:aaname='fuzzy' fuzzylevel:aaname='0.0' /&gt;" Guid="57e159aa-257c-443e-85d5-d5debad8fa3f" ScopeSelectorArgument="&lt;html app='msedge.exe' title='OpenMRS Electronic Medical Record' /&gt;" SearchSteps="Selector" Version="V6" Visibility="Interactive">
+      <TargetAnchorable.PointOffset>
+        <PointOffset />
+      </TargetAnchorable.PointOffset>
+      <imageRef attrName="InformativeScreenshot" originalValue="b3618fd8499cb3abeb7a6061ba17be5a.png" xmlns="">0psvKW1jhtEaLfvNunMjYOw</imageRef>
+    </TargetAnchorable>
+  </ObjectRepositoryTargetData.Data>
+</ObjectRepositoryTargetData>

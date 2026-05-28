@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-16"?>
+<ObjectRepositoryTargetData ContentHash="ecolqrzAIUu-7R9IRmbmAA" Reference="5UaRw1uKPkm0x-nmw-YXmg/YDf-Cdzxc0CnFAjM0PHMMw" xmlns="http://schemas.uipath.com/workflow/activities/uix" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <ObjectRepositoryTargetData.Data>
+    <TargetAnchorable x:Key="TargetAnchorable" BrowserURL="uilabsopenmrs.westeurope.cloudapp.azure.com/openmrs/registrationapp/registerPatient.page" ContentHash="W3nutzInbECXll9kVi70Rw" DesignTimeRectangle="1141, 381, 199, 34" DesignTimeScaleFactor="1" ElementType="InputBox" FullSelectorArgument="&lt;webctrl name='familyName' tag='INPUT' /&gt;" FuzzySelectorArgument="&lt;webctrl name='familyName' tag='INPUT' type='text' class='required ui-autocomplete-input' aaname='         Family Name (required)     ' matching:name='fuzzy' fuzzylevel:name='0.0' matching:class='fuzzy' fuzzylevel:class='0.0' matching:aaname='fuzzy' fuzzylevel:aaname='0.0' /&gt;" Guid="d8a1cbdf-abec-42f1-8d13-b9c6da0eaada" IsResponsive="True" Reference="5UaRw1uKPkm0x-nmw-YXmg/YDf-Cdzxc0CnFAjM0PHMMw" ScopeSelectorArgument="&lt;html app='msedge.exe' title='OpenMRS Electronic Medical Record' /&gt;" SearchSteps="FuzzySelector" Version="V6" Visibility="Interactive">
+      <TargetAnchorable.Anchors>
+        <scg:List x:TypeArguments="ITarget" Capacity="1">
+          <Target DesignTimeRectangle="1141, 340, 199, 36" ElementType="Text" FullSelectorArgument="&lt;webctrl aaname='         Family Name      ' tag='LABEL' /&gt;" FuzzySelectorArgument="&lt;webctrl aaname='         Family Name      ' tag='LABEL' type='' class='' matching:aaname='fuzzy' fuzzylevel:aaname='0.0' matching:class='fuzzy' fuzzylevel:class='0.0' check:innerText='Family Name (required)' /&gt;" Guid="566c33c9-0e60-4d74-af40-898b84289643" SearchSteps="FuzzySelector" />
+        </scg:List>
+      </TargetAnchorable.Anchors>
+      <TargetAnchorable.PointOffset>
+        <PointOffset />
+      </TargetAnchorable.PointOffset>
+      <imageRef attrName="InformativeScreenshot" originalValue="1172d3e9100ddcec685f0a9414b561c1.png" xmlns="">05u3H22iqK0CJVpAw8QiQVA</imageRef>
+    </TargetAnchorable>
+  </ObjectRepositoryTargetData.Data>
+</ObjectRepositoryTargetData>

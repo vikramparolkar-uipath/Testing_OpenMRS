@@ -1,0 +1,13 @@
+﻿{
+  "Name": "Address Tab",
+  "Type": "Element",
+  "TaxonomyType": "Tab",
+  "Id": "LoW_a26v1kOmrvKFRv3hpg",
+  "Reference": "5UaRw1uKPkm0x-nmw-YXmg/LoW_a26v1kOmrvKFRv3hpg",
+  "ParentRef": "5UaRw1uKPkm0x-nmw-YXmg/kemKTioyS0SVuiB0fbI3FA",
+  "Created": "2025-09-25T16:38:34.2488257Z",
+  "Updated": "2025-09-25T16:38:34.2488257Z",
+  "CreatedBy": [
+    "UiPath.Platform, Version=25.4.0.0, Culture=neutral, PublicKeyToken=null"
+  ]
+}

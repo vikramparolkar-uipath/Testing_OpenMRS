@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-16"?>
+<ObjectRepositoryTargetData ContentHash="-GDoKbFHkkeu52rbtf9hnQ" Reference="5UaRw1uKPkm0x-nmw-YXmg/AzEuYT0MyEyFz3ZYXjKulQ" xmlns="http://schemas.uipath.com/workflow/activities/uix" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <ObjectRepositoryTargetData.Data>
+    <TargetAnchorable x:Key="TargetAnchorable" BrowserURL="uilabsopenmrs.westeurope.cloudapp.azure.com/openmrs/registrationapp/registerPatient.page" ContentHash="ZJOhOa7cbkKSk7ysCBtd8Q" DesignTimeRectangle="1016, 381, 73, 34" DesignTimeScaleFactor="1" ElementType="InputBox" FullSelectorArgument="&lt;webctrl id='birthdateYear-field' tag='INPUT' /&gt;" FuzzySelectorArgument="&lt;webctrl id='birthdateYear-field' tag='INPUT' type='text' class='year number numeric-range date-component requiredTitle' aaname='         Year      ' matching:id='fuzzy' fuzzylevel:id='0.0' matching:class='fuzzy' fuzzylevel:class='0.0' matching:aaname='fuzzy' fuzzylevel:aaname='0.0' /&gt;" Guid="885ead1a-b87a-423e-b43d-5ecc02ab9396" IsResponsive="True" Reference="5UaRw1uKPkm0x-nmw-YXmg/AzEuYT0MyEyFz3ZYXjKulQ" ScopeSelectorArgument="&lt;html app='msedge.exe' title='OpenMRS Electronic Medical Record' /&gt;" SearchSteps="FuzzySelector" Version="V6" Visibility="Interactive">
+      <TargetAnchorable.Anchors>
+        <scg:List x:TypeArguments="ITarget" Capacity="1">
+          <Target DesignTimeRectangle="1016, 341, 73, 35" ElementType="Text" FullSelectorArgument="&lt;webctrl aaname='         Year      ' parentid='demographics-birthdate' tag='LABEL' /&gt;" FuzzySelectorArgument="&lt;webctrl aaname='         Year      ' parentid='demographics-birthdate' tag='LABEL' type='' class='' matching:aaname='fuzzy' fuzzylevel:aaname='0.0' matching:parentid='fuzzy' fuzzylevel:parentid='0.0' matching:class='fuzzy' fuzzylevel:class='0.0' check:innerText='Year' /&gt;" Guid="ddba698c-baa1-4f36-9609-3a944ecc3060" SearchSteps="FuzzySelector" />
+        </scg:List>
+      </TargetAnchorable.Anchors>
+      <TargetAnchorable.PointOffset>
+        <PointOffset />
+      </TargetAnchorable.PointOffset>
+      <imageRef attrName="InformativeScreenshot" originalValue="43ff4989a42d207c49d13479ef15a17e.png" xmlns="">0kERhl6vmXkyfsCAM71yr1A</imageRef>
+    </TargetAnchorable>
+  </ObjectRepositoryTargetData.Data>
+</ObjectRepositoryTargetData>

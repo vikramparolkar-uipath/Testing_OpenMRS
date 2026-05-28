@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-16"?>
+<ObjectRepositoryTargetData ContentHash="8q2LqJh3dkqxWHaUzMYs5Q" Reference="5UaRw1uKPkm0x-nmw-YXmg/pP_4YDxGzkGI2N0WQXsZ_g" xmlns="http://schemas.uipath.com/workflow/activities/uix" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <ObjectRepositoryTargetData.Data>
+    <TargetAnchorable x:Key="TargetAnchorable" BrowserURL="uilabsopenmrs.westeurope.cloudapp.azure.com/openmrs/registrationapp/registerPatient.page" ContentHash="8QaK2R1wyEakm9zfCBvNvA" DesignTimeRectangle="723, 337, 199, 34" DesignTimeScaleFactor="1" ElementType="InputBox" FullSelectorArgument="&lt;webctrl name='phoneNumber' tag='INPUT' type='text' /&gt;" FuzzySelectorArgument="&lt;webctrl name='phoneNumber' tag='INPUT' type='text' class='phone' aaname='         What&amp;apos;s the patient phone number?      ' matching:name='fuzzy' fuzzylevel:name='0.0' matching:class='fuzzy' fuzzylevel:class='0.0' matching:aaname='fuzzy' fuzzylevel:aaname='0.0' /&gt;" Guid="5c77b9f1-153a-4936-888e-0eff1fa59292" IsResponsive="True" Reference="5UaRw1uKPkm0x-nmw-YXmg/pP_4YDxGzkGI2N0WQXsZ_g" ScopeSelectorArgument="&lt;html app='msedge.exe' title='OpenMRS Electronic Medical Record' /&gt;" SearchSteps="FuzzySelector" Version="V6" Visibility="Interactive">
+      <TargetAnchorable.Anchors>
+        <scg:List x:TypeArguments="ITarget" Capacity="1">
+          <Target DesignTimeRectangle="723, 297, 311, 35" ElementType="Text" FullSelectorArgument="&lt;webctrl parentid='phoneNumberLabel' tag='LABEL' /&gt;" FuzzySelectorArgument="&lt;webctrl parentid='phoneNumberLabel' tag='LABEL' type='' class='' aaname='         What&amp;apos;s the patient phone number?      ' matching:parentid='fuzzy' fuzzylevel:parentid='0.0' matching:class='fuzzy' fuzzylevel:class='0.0' matching:aaname='fuzzy' fuzzylevel:aaname='0.0' check:innerText='What&amp;apos;s the patient phone number?' /&gt;" Guid="1911eed5-8f7f-4e45-a39f-74274e2ee59c" SearchSteps="FuzzySelector" />
+        </scg:List>
+      </TargetAnchorable.Anchors>
+      <TargetAnchorable.PointOffset>
+        <PointOffset />
+      </TargetAnchorable.PointOffset>
+      <imageRef attrName="InformativeScreenshot" originalValue="1e62441844d85be421528c7b4f375bfa.png" xmlns="">0pnbAsFsBh0eT_THbWiM7DQ</imageRef>
+    </TargetAnchorable>
+  </ObjectRepositoryTargetData.Data>
+</ObjectRepositoryTargetData>

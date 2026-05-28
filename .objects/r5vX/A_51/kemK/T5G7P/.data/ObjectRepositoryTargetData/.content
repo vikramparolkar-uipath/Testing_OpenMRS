@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-16"?>
+<ObjectRepositoryTargetData ContentHash="CL-2MDQMvE-SmnTnMtlt1w" Reference="5UaRw1uKPkm0x-nmw-YXmg/T5G7Pt50nUOmDMFums2nLw" xmlns="http://schemas.uipath.com/workflow/activities/uix" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <ObjectRepositoryTargetData.Data>
+    <TargetAnchorable x:Key="TargetAnchorable" BrowserURL="uilabsopenmrs.westeurope.cloudapp.azure.com/openmrs/registrationapp/registerPatient.page" ContentHash="5fgoT9mZ9UCOLdLlx168ZQ" DesignTimeRectangle="1113, 546, 115, 34" DesignTimeScaleFactor="1" ElementType="InputBox" FullSelectorArgument="&lt;webctrl id='postalCode' tag='INPUT' /&gt;" FuzzySelectorArgument="&lt;webctrl id='postalCode' tag='INPUT' type='text' class='' aaname='' matching:id='fuzzy' fuzzylevel:id='0.0' matching:class='fuzzy' fuzzylevel:class='0.0' matching:aaname='fuzzy' fuzzylevel:aaname='0.0' /&gt;" Guid="e7f041e1-f558-4495-9f6f-751fac3e7165" IsResponsive="True" Reference="5UaRw1uKPkm0x-nmw-YXmg/T5G7Pt50nUOmDMFums2nLw" ScopeSelectorArgument="&lt;html app='msedge.exe' title='OpenMRS Electronic Medical Record' /&gt;" SearchSteps="FuzzySelector" Version="V6" Visibility="Interactive">
+      <TargetAnchorable.Anchors>
+        <scg:List x:TypeArguments="ITarget" Capacity="1">
+          <Target DesignTimeRectangle="1113, 506, 115, 35" ElementType="Text" FullSelectorArgument="&lt;webctrl name='postalCode' tag='LABEL' /&gt;" FuzzySelectorArgument="&lt;webctrl name='postalCode' tag='LABEL' type='' class='' aaname=' &amp;#x9;        &amp;#x9;&amp;#x9;&amp;#x9;Postal Code &amp;#x9;        &amp;#x9;&amp;#x9;' matching:name='fuzzy' fuzzylevel:name='0.0' matching:class='fuzzy' fuzzylevel:class='0.0' matching:aaname='fuzzy' fuzzylevel:aaname='0.0' check:innerText='Postal Code' /&gt;" Guid="0ec1ac8e-53ff-4571-9aed-3a38554e73ab" SearchSteps="FuzzySelector" />
+        </scg:List>
+      </TargetAnchorable.Anchors>
+      <TargetAnchorable.PointOffset>
+        <PointOffset />
+      </TargetAnchorable.PointOffset>
+      <imageRef attrName="InformativeScreenshot" originalValue="73ca4afa8c8d0e66d71bffdbf8adae87.png" xmlns="">0UF78oJNUSkumD_tBv9js6Q</imageRef>
+    </TargetAnchorable>
+  </ObjectRepositoryTargetData.Data>
+</ObjectRepositoryTargetData>

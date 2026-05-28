@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-16"?>
+<ObjectRepositoryTargetData ContentHash="mM5Avc_fiUuNG0lUGXjKDw" Reference="5UaRw1uKPkm0x-nmw-YXmg/q5EsHaSsakGT6dUOItmKQA" xmlns="http://schemas.uipath.com/workflow/activities/uix" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <ObjectRepositoryTargetData.Data>
+    <TargetAnchorable x:Key="TargetAnchorable" BrowserURL="uilabsopenmrs.westeurope.cloudapp.azure.com/openmrs/registrationapp/registerPatient.page" ContentHash="09QHwTZDZESGMVR3hV2FdQ" DesignTimeRectangle="932, 380, 199, 34" DesignTimeScaleFactor="1" ElementType="InputBox" FullSelectorArgument="&lt;webctrl name='middleName' tag='INPUT' /&gt;" FuzzySelectorArgument="&lt;webctrl name='middleName' tag='INPUT' type='text' class='ui-autocomplete-input' aaname='         Middle      ' matching:name='fuzzy' fuzzylevel:name='0.0' matching:class='fuzzy' fuzzylevel:class='0.0' matching:aaname='fuzzy' fuzzylevel:aaname='0.0' /&gt;" Guid="f585da10-d32c-47a5-9494-a33b8a6d610a" IsResponsive="True" Reference="5UaRw1uKPkm0x-nmw-YXmg/q5EsHaSsakGT6dUOItmKQA" ScopeSelectorArgument="&lt;html app='msedge.exe' title='OpenMRS Electronic Medical Record' /&gt;" SearchSteps="FuzzySelector" Version="V6" Visibility="Interactive">
+      <TargetAnchorable.Anchors>
+        <scg:List x:TypeArguments="ITarget" Capacity="1">
+          <Target DesignTimeRectangle="932, 340, 199, 35" ElementType="Text" FullSelectorArgument="&lt;webctrl aaname='         Middle      ' tag='LABEL' /&gt;" FuzzySelectorArgument="&lt;webctrl aaname='         Middle      ' tag='LABEL' type='' class='' matching:aaname='fuzzy' fuzzylevel:aaname='0.0' matching:class='fuzzy' fuzzylevel:class='0.0' check:innerText='Middle' /&gt;" Guid="ce165e3d-14d2-4e20-b5be-cb361d2bbf47" SearchSteps="FuzzySelector" />
+        </scg:List>
+      </TargetAnchorable.Anchors>
+      <TargetAnchorable.PointOffset>
+        <PointOffset />
+      </TargetAnchorable.PointOffset>
+      <imageRef attrName="InformativeScreenshot" originalValue="33656ee37ff289add275d6a16fa3bfb6.png" xmlns="">0-uxTh8cquUuQS6WdoHrhOw</imageRef>
+    </TargetAnchorable>
+  </ObjectRepositoryTargetData.Data>
+</ObjectRepositoryTargetData>

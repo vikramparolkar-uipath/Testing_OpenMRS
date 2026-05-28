@@ -1,0 +1,13 @@
+﻿{
+  "Name": "Laboratory",
+  "Type": "Element",
+  "TaxonomyType": "None",
+  "Id": "anUhUZPpKkSH5hdIBOL8XQ",
+  "Reference": "5UaRw1uKPkm0x-nmw-YXmg/anUhUZPpKkSH5hdIBOL8XQ",
+  "ParentRef": "5UaRw1uKPkm0x-nmw-YXmg/S4v6LzffkEqEsLGp-Kp-_Q",
+  "Created": "2025-09-25T15:24:21.9097929Z",
+  "Updated": "2025-09-25T15:24:21.9097929Z",
+  "CreatedBy": [
+    "UiPath.Platform, Version=25.4.0.0, Culture=neutral, PublicKeyToken=null"
+  ]
+}

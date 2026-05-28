@@ -1,0 +1,9 @@
+{
+  "issueKeyTestcaseValues": {},
+  "testManagerBasePath": "https://staging.uipath.com/uipathlabstestcloud/Playground/testmanager_",
+  "defaultProject": {
+    "id": "87363b5a-ba93-0000-3a17-0b48bda76af9",
+    "name": "OpenMRS",
+    "key": "MRS"
+  }
+}

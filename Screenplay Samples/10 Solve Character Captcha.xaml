@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Activity mc:Ignorable="sap sap2010" x:Class="_10_Solve_Multiple_Captchas" VisualBasic.Settings="{x:Null}" sap2010:WorkflowViewState.IdRef="_10_Solve_Multiple_Captchas_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=System.Private.CoreLib" xmlns:uix="http://schemas.uipath.com/workflow/activities/uix" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Collections.ObjectModel</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>GlobalVariablesNamespace</x:String>
+      <x:String>GlobalConstantsNamespace</x:String>
+      <x:String>System.Runtime.Serialization</x:String>
+      <x:String>UiPath.UIAutomationNext.Enums</x:String>
+      <x:String>UiPath.UIAutomationCore.Contracts</x:String>
+      <x:String>UiPath.UIAutomationNext.Models</x:String>
+      <x:String>UiPath.UIAutomationNext.Activities</x:String>
+      <x:String>UiPath.Shared.Activities</x:String>
+      <x:String>UiPath.Platform.ObjectLibrary</x:String>
+      <x:String>UiPath.Platform.SyncObjects</x:String>
+      <x:String>UiPath.Semantic.Activities</x:String>
+      <x:String>System.Reflection</x:String>
+      <x:String>System.Linq.Expressions</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.TypeConverter</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Data.Common</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Drawing.Common</AssemblyReference>
+      <AssemblyReference>System.Drawing.Primitives</AssemblyReference>
+      <AssemblyReference>System.Linq</AssemblyReference>
+      <AssemblyReference>System.Net.Mail</AssemblyReference>
+      <AssemblyReference>System.ObjectModel</AssemblyReference>
+      <AssemblyReference>System.Private.CoreLib</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Studio.Constants</AssemblyReference>
+      <AssemblyReference>System.Private.ServiceModel</AssemblyReference>
+      <AssemblyReference>System.Private.DataContractSerialization</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization.Formatters</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization.Primitives</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationNext</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationCore</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationNext.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Testing.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Web.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.OCR.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Platform</AssemblyReference>
+      <AssemblyReference>System.Reflection.DispatchProxy</AssemblyReference>
+      <AssemblyReference>System.Reflection.TypeExtensions</AssemblyReference>
+      <AssemblyReference>System.Reflection.Metadata</AssemblyReference>
+      <AssemblyReference>System.Console</AssemblyReference>
+      <AssemblyReference>System.Security.Permissions</AssemblyReference>
+      <AssemblyReference>System.Configuration.ConfigurationManager</AssemblyReference>
+      <AssemblyReference>System.ComponentModel</AssemblyReference>
+      <AssemblyReference>System.Memory</AssemblyReference>
+      <AssemblyReference>System.Private.Uri</AssemblyReference>
+      <AssemblyReference>System.Collections</AssemblyReference>
+      <AssemblyReference>System.Collections.NonGeneric</AssemblyReference>
+      <AssemblyReference>System.Linq.Expressions</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence DisplayName="_10_Solve_Multiple_Captchas" sap:VirtualizedContainerService.HintSize="1094.857142857143,992.8971428571429" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <uix:NApplicationCard AttachMode="ByInstance" CloseMode="Never" DisplayName="Open Website" HealingAgentBehavior="Job" sap:VirtualizedContainerService.HintSize="434.2857142857143,487.42857142857144" sap2010:WorkflowViewState.IdRef="NApplicationCard_1" InteractionMode="DebuggerApi" ScopeGuid="d535a784-1872-49a9-a49a-5049084b9c57" Version="V2">
+      <uix:NApplicationCard.Body>
+        <ActivityAction x:TypeArguments="x:Object">
+          <ActivityAction.Argument>
+            <DelegateInArgument x:TypeArguments="x:Object" Name="WSSessionData" />
+          </ActivityAction.Argument>
+          <uix:NUITask AgentType="[UiPath.UIAutomationNext.Enums.NUITaskAgentType.DOMBasedGPT41Mini]" DisplayName="Solve Character Captcha" sap:VirtualizedContainerService.HintSize="400,244.57142857142858" sap2010:WorkflowViewState.IdRef="NUITask_1" InteractionMode="Simulate" ScopeIdentifier="d535a784-1872-49a9-a49a-5049084b9c57" Task="Solve the CAPTCHA shown in the 'CAPTCHA Preview' section on this website." Version="V4" />
+        </ActivityAction>
+      </uix:NApplicationCard.Body>
+      <uix:NApplicationCard.TargetApp>
+        <uix:TargetApp Area="-2553, 1065, 2546, 1358" BrowserType="Chrome" IconBase64="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" InformativeScreenshot="661d81c9b4460f9f3b2973e92d2650a0.jpg" Selector="&lt;html app='chrome.exe' title='BotDetect CAPTCHA Demo - Features' /&gt;" Url="https://captcha.com/demos/features/captcha-demo.aspx" Version="V2" />
+      </uix:NApplicationCard.TargetApp>
+    </uix:NApplicationCard>
+  </Sequence>
+</Activity>

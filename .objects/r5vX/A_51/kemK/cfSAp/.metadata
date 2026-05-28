@@ -1,0 +1,17 @@
+﻿{
+  "Name": "Gender Dropdown",
+  "Type": "Element",
+  "TaxonomyType": "Dropdown",
+  "Id": "cfSApNhQHUm6xteZQTy92Q",
+  "Reference": "5UaRw1uKPkm0x-nmw-YXmg/cfSApNhQHUm6xteZQTy92Q",
+  "ParentRef": "5UaRw1uKPkm0x-nmw-YXmg/kemKTioyS0SVuiB0fbI3FA",
+  "Created": "2025-09-25T16:32:12.4606716Z",
+  "Updated": "2025-09-25T16:38:33.0591765Z",
+  "CreatedBy": [
+    "UiPath.UIAutomationCore, Version=25.10.1.0, Culture=neutral, PublicKeyToken=null",
+    "UiPath.Platform, Version=25.4.0.0, Culture=neutral, PublicKeyToken=null"
+  ],
+  "UpdatedBy": [
+    "UiPath.Platform, Version=25.4.0.0, Culture=neutral, PublicKeyToken=null"
+  ]
+}

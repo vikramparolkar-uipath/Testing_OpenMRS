@@ -1,0 +1,13 @@
+﻿{
+  "Name": "Phone Number Tab",
+  "Type": "Element",
+  "TaxonomyType": "Tab",
+  "Id": "k5NAe6QyaU6Aeum21Kplrg",
+  "Reference": "5UaRw1uKPkm0x-nmw-YXmg/k5NAe6QyaU6Aeum21Kplrg",
+  "ParentRef": "5UaRw1uKPkm0x-nmw-YXmg/kemKTioyS0SVuiB0fbI3FA",
+  "Created": "2025-09-25T16:38:35.2317166Z",
+  "Updated": "2025-09-25T16:38:35.2317166Z",
+  "CreatedBy": [
+    "UiPath.Platform, Version=25.4.0.0, Culture=neutral, PublicKeyToken=null"
+  ]
+}
