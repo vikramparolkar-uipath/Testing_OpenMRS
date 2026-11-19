@@ -1,9 +1,13 @@
+# UiPath Studio local cache
+.local/
 
-################################################################################
-# Added by UiPath Studio
-# Prevent caching and local artifacts from being committed
-################################################################################
-.local
-################################################################################
-# End of UiPath Studio common ignores
-################################################################################
+# Selenium suite build output and run results
+SeleniumSuite/**/results/
+SeleniumSuite/**/target/
+SeleniumSuite/**/bin/
+SeleniumSuite/**/obj/
+SeleniumSuite/**/.venv/
+SeleniumSuite/**/__pycache__/
+SeleniumSuite/**/.pytest_cache/
+SeleniumSuite/**/node_modules/
+SeleniumSuite/**/.bundle/

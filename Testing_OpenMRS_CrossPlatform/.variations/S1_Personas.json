@@ -1,0 +1,6 @@
+[
+  { "in_Persona": "Admin" },
+  { "in_Persona": "Doctor" },
+  { "in_Persona": "Nurse" },
+  { "in_Persona": "Clerk" }
+]

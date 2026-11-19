@@ -1,6 +1,0 @@
-{
-  "Name": "Testing_OpenMRS",
-  "ProjectType": "Tests",
-  "Description": "UiPath Test Cloud project for Application Testing of OpenMRS",
-  "MainFile": "Main.xaml"
-}

@@ -1,0 +1,15 @@
+{
+  "name": "s4-vitals-js-mocha",
+  "version": "1.0.0",
+  "private": true,
+  "description": "S4 - Vitals out-of-range validation (nurse). JavaScript + Mocha + selenium-webdriver.",
+  "scripts": {
+    "test": "mocha --timeout 180000 --reporter mocha-multi-reporters --reporter-options configFile=reporters.json test/"
+  },
+  "devDependencies": {
+    "mocha": "^11.7.0",
+    "mocha-junit-reporter": "^2.2.1",
+    "mocha-multi-reporters": "^1.5.1",
+    "selenium-webdriver": "^4.38.0"
+  }
+}

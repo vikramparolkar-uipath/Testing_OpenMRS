@@ -1,0 +1,69 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="Framework_ReportSeleniumResults" mva:VisualBasic.Settings="{x:Null}" sap2010:WorkflowViewState.IdRef="ActivityBuilder_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=System.Private.CoreLib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data.Common" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:uta="clr-namespace:UiPath.Testing.Activities;assembly=UiPath.Testing.Activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="in_ScenarioLabel" Type="InArgument(x:String)" />
+    <x:Property Name="in_dt_TestResults" Type="InArgument(sd:DataTable)" />
+    <x:Property Name="in_ResultsFolder" Type="InArgument(x:String)" />
+  </x:Members>
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>UiPath.Testing.Activities</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>System.Private.CoreLib</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Linq</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Data.Common</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Testing.Activities</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence DisplayName="Report Selenium results" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <ui:LogMessage DisplayName="Log result count" Level="Info" Message="[&quot;Reporting &quot; &amp; in_dt_TestResults.Rows.Count.ToString &amp; &quot; Selenium test(s) for &quot; &amp; in_ScenarioLabel]" sap2010:WorkflowViewState.IdRef="LogMessage_1" />
+    <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="{x:Null}" DataTable="[in_dt_TestResults]" DisplayName="For each Selenium test" sap2010:WorkflowViewState.IdRef="ForEachRow_1">
+      <ui:ForEachRow.Body>
+        <ActivityAction x:TypeArguments="sd:DataRow">
+          <ActivityAction.Argument>
+            <DelegateInArgument x:TypeArguments="sd:DataRow" Name="CurrentRow" />
+          </ActivityAction.Argument>
+          <Sequence DisplayName="Report one Selenium test" sap2010:WorkflowViewState.IdRef="Sequence_2">
+            <If Condition="[CurrentRow(&quot;Outcome&quot;).ToString &lt;&gt; &quot;passed&quot;]" DisplayName="If the Selenium test did not pass" sap2010:WorkflowViewState.IdRef="If_1">
+              <If.Then>
+                <ui:LogMessage DisplayName="Log the Selenium failure message" Level="Warn" Message="[CurrentRow(&quot;Name&quot;).ToString &amp; &quot; (&quot; &amp; CurrentRow(&quot;Outcome&quot;).ToString &amp; &quot;): &quot; &amp; CurrentRow(&quot;Message&quot;).ToString]" sap2010:WorkflowViewState.IdRef="LogMessage_2" />
+              </If.Then>
+            </If>
+            <uta:VerifyExpression AlternativeVerificationTitle="[in_ScenarioLabel &amp; &quot; | &quot; &amp; CurrentRow(&quot;Name&quot;).ToString]" DisplayName="Verify the Selenium test passed" Expression="[CurrentRow(&quot;Outcome&quot;).ToString = &quot;passed&quot;]" KeepScreenshots="{x:Null}" OutputMessageFormat="{x:Null}" Result="{x:Null}" ScreenshotsPath="{x:Null}" ContinueOnFailure="True" TakeScreenshotInCaseOfFailingAssertion="False" TakeScreenshotInCaseOfSucceedingAssertion="False" sap2010:WorkflowViewState.IdRef="VerifyExpression_1" />
+          </Sequence>
+        </ActivityAction>
+      </ui:ForEachRow.Body>
+    </ui:ForEachRow>
+    <ui:ForEach x:TypeArguments="x:String" CurrentIndex="{x:Null}" DisplayName="For each evidence file" Values="[New String() {&quot;junit.xml&quot;, &quot;console.log&quot;, &quot;output.json&quot;}.Select(Function(f) Path.Combine(in_ResultsFolder, f)).Where(Function(f) File.Exists(f)).Concat(If(Directory.Exists(Path.Combine(in_ResultsFolder, &quot;screenshots&quot;)), Directory.GetFiles(Path.Combine(in_ResultsFolder, &quot;screenshots&quot;), &quot;*.png&quot;), New String() {}))]" sap2010:WorkflowViewState.IdRef="ForEach`1_1">
+      <ui:ForEach.Body>
+        <ActivityAction x:TypeArguments="x:String">
+          <ActivityAction.Argument>
+            <DelegateInArgument x:TypeArguments="x:String" Name="evidenceFile" />
+          </ActivityAction.Argument>
+          <uta:AttachDocument ContinueOnError="True" DisplayName="Attach evidence to the test result" FilePath="[evidenceFile]" Tags="[New String() {in_ScenarioLabel, &quot;Selenium&quot;}]" sap2010:WorkflowViewState.IdRef="AttachDocument_1" />
+        </ActivityAction>
+      </ui:ForEach.Body>
+    </ui:ForEach>
+  </Sequence>
+</Activity>

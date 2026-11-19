@@ -1,0 +1,82 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="Tests_S3_FindPatient_PythonPytest" this:Tests_S3_FindPatient_PythonPytest.in_BaseUrl="http://uilabsopenmrs.westeurope.cloudapp.azure.com:8080/openmrs" this:Tests_S3_FindPatient_PythonPytest.in_AssetFolder="OpenMRS" this:Tests_S3_FindPatient_PythonPytest.in_SeleniumRoot="..\SeleniumSuite" this:Tests_S3_FindPatient_PythonPytest.in_PatientQuery="Smith" this:Tests_S3_FindPatient_PythonPytest.in_Headless="False" mva:VisualBasic.Settings="{x:Null}" sap2010:WorkflowViewState.IdRef="ActivityBuilder_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=System.Private.CoreLib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data.Common" xmlns:this="clr-namespace:" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:uta="clr-namespace:UiPath.Testing.Activities;assembly=UiPath.Testing.Activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="in_BaseUrl" Type="InArgument(x:String)" />
+    <x:Property Name="in_AssetFolder" Type="InArgument(x:String)" />
+    <x:Property Name="in_SeleniumRoot" Type="InArgument(x:String)" />
+    <x:Property Name="in_PatientQuery" Type="InArgument(x:String)" />
+    <x:Property Name="in_Headless" Type="InArgument(x:Boolean)" />
+  </x:Members>
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>UiPath.Testing.Activities</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>System.Private.CoreLib</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Linq</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Data.Common</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Testing.Activities</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence DisplayName="S3 Find a patient by name, then by ID (Python + pytest)" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="x:Int32" Name="exitCode" />
+      <Variable x:TypeArguments="sd:DataTable" Name="dt_SeleniumResults" />
+      <Variable x:TypeArguments="x:String" Name="resultsFolder" />
+      <Variable x:TypeArguments="x:String" Name="outputJson" />
+    </Sequence.Variables>
+    <Sequence DisplayName="Given the nurse persona and the existing Python Selenium suite" sap2010:WorkflowViewState.IdRef="Sequence_2">
+      <ui:LogMessage DisplayName="Log scenario" Level="Info" Message="[&quot;S3: nurse searches '&quot; &amp; in_PatientQuery &amp; &quot;' by name, then by Patient ID, on &quot; &amp; in_BaseUrl]" sap2010:WorkflowViewState.IdRef="LogMessage_1" />
+    </Sequence>
+    <Sequence DisplayName="When the Selenium scenario runs unchanged" sap2010:WorkflowViewState.IdRef="Sequence_3">
+      <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" DisplayName="Run Selenium scenario S3 (pytest)" UnSafe="False" WorkflowFileName="Framework\RunSeleniumScenario.cs" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1">
+        <ui:InvokeWorkflowFile.Arguments>
+          <scg:Dictionary x:TypeArguments="x:String, Argument">
+            <InArgument x:TypeArguments="x:String" x:Key="in_Scenario">S3</InArgument>
+            <InArgument x:TypeArguments="x:String" x:Key="in_CredentialAsset">OpenMRS Nurse</InArgument>
+            <InArgument x:TypeArguments="x:String" x:Key="in_AssetFolder">[in_AssetFolder]</InArgument>
+            <InArgument x:TypeArguments="x:String" x:Key="in_BaseUrl">[in_BaseUrl]</InArgument>
+            <InArgument x:TypeArguments="x:String" x:Key="in_SeleniumRoot">[in_SeleniumRoot]</InArgument>
+            <InArgument x:TypeArguments="x:String" x:Key="in_PatientQuery">[in_PatientQuery]</InArgument>
+            <InArgument x:TypeArguments="x:Boolean" x:Key="in_Headless">[in_Headless]</InArgument>
+            <OutArgument x:TypeArguments="x:Int32" x:Key="out_ExitCode">[exitCode]</OutArgument>
+            <OutArgument x:TypeArguments="sd:DataTable" x:Key="out_dt_TestResults">[dt_SeleniumResults]</OutArgument>
+            <OutArgument x:TypeArguments="x:String" x:Key="out_ResultsFolder">[resultsFolder]</OutArgument>
+            <OutArgument x:TypeArguments="x:String" x:Key="out_OutputJson">[outputJson]</OutArgument>
+          </scg:Dictionary>
+        </ui:InvokeWorkflowFile.Arguments>
+      </ui:InvokeWorkflowFile>
+    </Sequence>
+    <Sequence DisplayName="Then every Selenium test is reported with evidence" sap2010:WorkflowViewState.IdRef="Sequence_4">
+      <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" DisplayName="Report Selenium results to Test Manager" UnSafe="False" WorkflowFileName="Framework\ReportSeleniumResults.xaml" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_2">
+        <ui:InvokeWorkflowFile.Arguments>
+          <scg:Dictionary x:TypeArguments="x:String, Argument">
+            <InArgument x:TypeArguments="x:String" x:Key="in_ScenarioLabel">S3 Python</InArgument>
+            <InArgument x:TypeArguments="sd:DataTable" x:Key="in_dt_TestResults">[dt_SeleniumResults]</InArgument>
+            <InArgument x:TypeArguments="x:String" x:Key="in_ResultsFolder">[resultsFolder]</InArgument>
+          </scg:Dictionary>
+        </ui:InvokeWorkflowFile.Arguments>
+      </ui:InvokeWorkflowFile>
+      <uta:VerifyExpression AlternativeVerificationTitle="S3 Python | Selenium suite exit code is 0" DisplayName="Verify the Selenium suite exit code is 0" Expression="[exitCode = 0]" KeepScreenshots="{x:Null}" OutputMessageFormat="{x:Null}" Result="{x:Null}" ScreenshotsPath="{x:Null}" ContinueOnFailure="True" TakeScreenshotInCaseOfFailingAssertion="False" TakeScreenshotInCaseOfSucceedingAssertion="False" sap2010:WorkflowViewState.IdRef="VerifyExpression_1" />
+    </Sequence>
+  </Sequence>
+</Activity>

@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-16"?>
-<ObjectRepositoryTargetData ContentHash="pRY8ytLN_ECv1bIHVz-Vlg" xmlns="http://schemas.uipath.com/workflow/activities/uix" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-  <ObjectRepositoryTargetData.Data>
-    <TargetAnchorable x:Key="TargetAnchorable" BrowserURL="uilabsopenmrs.westeurope.cloudapp.azure.com/openmrs/login.htm" DesignTimeRectangle="1073, 434, 250, 35" DesignTimeScaleFactor="1" ElementType="ListItem" FullSelectorArgument="&lt;webctrl id='Laboratory' tag='LI' /&gt;" FuzzySelectorArgument="&lt;webctrl id='Laboratory' tag='LI' type='' class='' /&gt;" Guid="8ba48627-950b-48ad-86dd-941c63a792b0" ScopeSelectorArgument="&lt;html app='msedge.exe' title='Login' /&gt;" SearchSteps="FuzzySelector" Version="V4" Visibility="Interactive">
-      <imageRef attrName="InformativeScreenshot" originalValue="067bc459cce47735175bde11f55d148d.png" xmlns="">0Cj-thtVwYUSMm1jatlFvzQ</imageRef>
-    </TargetAnchorable>
-  </ObjectRepositoryTargetData.Data>
-</ObjectRepositoryTargetData>
