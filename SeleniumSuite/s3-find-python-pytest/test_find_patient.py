@@ -3,10 +3,14 @@
 Assertions are named checkpoints (see checkpoints.py): each one takes its own screenshot and is reported
 individually, so Test Manager shows one assertion per checkpoint.
 """
-from selenium.common.exceptions import TimeoutException
+import os
+
+from selenium.common.exceptions import StaleElementReferenceException, TimeoutException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
 
+import checkpoints
 from conftest import write_output
 
 RESULT_ROWS = "#patient-search-results-table tbody tr"
@@ -20,6 +24,15 @@ def open_find_patient(driver, wait):
 
 def rows(driver):
     return driver.find_elements(By.CSS_SELECTOR, RESULT_ROWS)
+
+
+def simulate_defect():
+    return os.environ.get("OMRS_SIMULATE_DEFECT", "false").lower() == "true"
+
+
+def short_wait(driver):
+    """10 s is plenty for a search to settle; keeps a failing check from waiting the full 30 s."""
+    return WebDriverWait(driver, 10, ignored_exceptions=[StaleElementReferenceException])
 
 
 def waited(wait, condition):
@@ -56,11 +69,21 @@ def test_find_patient_by_name_then_id(driver, wait, login, config, check):
     check("First result has a Patient ID", patient_id, "The first search result shows no Patient ID")
 
     # 2. Search by that ID: exactly one match
+    # Demo switch: OMRS_SIMULATE_DEFECT=true imitates a regression in which the ID search loses the last
+    # character of what was typed, so this checkpoint fails and the run shows exactly where and why.
+    searched = patient_id[:-1] if simulate_defect() else patient_id
+    if searched != patient_id:
+        checkpoints.trail(f"SIMULATED DEFECT: ID search sends '{searched}' instead of '{patient_id}'")
     box.clear()
-    box.send_keys(patient_id)
-    check("ID search returns exactly one match",
-          waited(wait, lambda d: len(rows(d)) == 1 and patient_id in rows(d)[0].text),
-          f"Searching '{patient_id}' did not return exactly one matching row")
+    box.send_keys(searched)
+    found = waited(short_wait(driver), lambda d: len(rows(d)) == 1 and patient_id in rows(d)[0].text)
+    try:
+        seen = [r.text.replace("\n", " ") for r in rows(driver)]
+    except StaleElementReferenceException:
+        seen = ["(table was redrawing)"]
+    check("ID search returns exactly one match", found,
+          f"Searched for Patient ID '{patient_id}' (search box sent '{searched}'): "
+          f"expected exactly 1 matching row, got {len(seen)}. First rows: {seen[:5]}")
 
     # 3. Open the patient: the dashboard header shows the same ID and name
     def open_row(d):

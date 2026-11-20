@@ -52,6 +52,17 @@ namespace Testing_OpenMRS_CrossPlatform
                 table.Rows.Add(Str(e, "test"), e.TryGetProperty("step", out var s) ? s.GetInt32() : 0, Str(e, "name"),
                     Str(e, "outcome"), Trim(Str(e, "message")), File.Exists(fullShot) ? fullShot : string.Empty, 0d);
             }
+
+            // Pinpoint: the failed checkpoint's message also says which planned steps never ran because of it
+            foreach (DataRow failed in table.Select("Outcome = 'failed'"))
+            {
+                string[] skipped = table.AsEnumerable()
+                    .Where(r => (string)r["Test"] == (string)failed["Test"] && (string)r["Outcome"] == "not reached")
+                    .OrderBy(r => (int)r["Step"])
+                    .Select(r => $"{r["Step"]}. {r["Name"]}").ToArray();
+                if (skipped.Length > 0)
+                    failed["Message"] = $"{failed["Message"]} | Not run because of this failure: {string.Join("; ", skipped)}";
+            }
         }
 
         private static void ReadJUnit(string path, string resultsFolder, DataTable table)
@@ -106,6 +117,12 @@ namespace Testing_OpenMRS_CrossPlatform
             html.Append("<p class=\"sum\">").Append(passed).Append(" of ").Append(results.Rows.Count)
                 .Append(" assertions passed · suite exit code ").Append(exitCode).Append(" · ").Append(Enc(baseUrl))
                 .Append(" · ").Append(DateTime.Now.ToString("yyyy-MM-dd HH:mm")).Append("</p>");
+            DataRow firstFailure = results.AsEnumerable().FirstOrDefault(r => (string)r["Outcome"] == "failed");
+            if (firstFailure != null)
+                html.Append("<p style=\"background:#fff5f5;border:1px solid #e03131;border-radius:6px;padding:10px\"><b>Failed at:</b> ")
+                    .Append(Enc((string)firstFailure["Test"])).Append(" · step ").Append((int)firstFailure["Step"]).Append(". ")
+                    .Append(Enc((string)firstFailure["Name"])).Append("<br><span class=\"msg\">")
+                    .Append(Enc((string)firstFailure["Message"])).Append("</span></p>");
 
             foreach (var test in results.AsEnumerable().GroupBy(r => (string)r["Test"]))
             {

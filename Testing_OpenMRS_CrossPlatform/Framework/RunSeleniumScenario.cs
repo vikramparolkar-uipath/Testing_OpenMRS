@@ -29,7 +29,8 @@ namespace Testing_OpenMRS_CrossPlatform
             string in_BaseUrl,
             string in_SeleniumRoot,
             string in_PatientQuery,
-            bool in_Headless)
+            bool in_Headless,
+            bool in_SimulateDefect)
         {
             in_SeleniumRoot = ResolveSeleniumRoot(in_SeleniumRoot);
             string script = Path.Combine(in_SeleniumRoot, "run-scenario.ps1");
@@ -55,6 +56,9 @@ namespace Testing_OpenMRS_CrossPlatform
             psi.Environment["OMRS_USERNAME"] = userName;
             psi.Environment["OMRS_PASSWORD"] = new NetworkCredential(string.Empty, password).Password;
             psi.Environment["OMRS_HEADLESS"] = in_Headless ? "true" : "false";
+            // Demo switch for suites that support it (S3): imitate an application regression so a checkpoint fails
+            psi.Environment["OMRS_SIMULATE_DEFECT"] = in_SimulateDefect ? "true" : "false";
+            if (in_SimulateDefect) Log($"{in_Scenario}: SIMULATED DEFECT is on - a checkpoint is expected to fail");
             if (!string.IsNullOrWhiteSpace(in_PatientQuery))
                 psi.Environment["OMRS_PATIENT_QUERY"] = in_PatientQuery;
 

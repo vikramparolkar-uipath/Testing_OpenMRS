@@ -58,6 +58,7 @@
             <InArgument x:TypeArguments="x:String" x:Key="in_SeleniumRoot">[in_SeleniumRoot]</InArgument>
             <InArgument x:TypeArguments="x:String" x:Key="in_PatientQuery">[in_PatientQuery]</InArgument>
             <InArgument x:TypeArguments="x:Boolean" x:Key="in_Headless">[in_Headless]</InArgument>
+            <InArgument x:TypeArguments="x:Boolean" x:Key="in_SimulateDefect">[False]</InArgument>
             <OutArgument x:TypeArguments="x:Int32" x:Key="out_ExitCode">[exitCode]</OutArgument>
             <OutArgument x:TypeArguments="sd:DataTable" x:Key="out_dt_TestResults">[dt_SeleniumResults]</OutArgument>
             <OutArgument x:TypeArguments="x:String" x:Key="out_ResultsFolder">[resultsFolder]</OutArgument>

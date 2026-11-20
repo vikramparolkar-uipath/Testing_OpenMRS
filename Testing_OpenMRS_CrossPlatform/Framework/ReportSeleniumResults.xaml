@@ -50,6 +50,8 @@
                 <ui:LogMessage DisplayName="Log the Selenium failure message" Level="Warn" Message="[CurrentRow(&quot;Name&quot;).ToString &amp; &quot; (&quot; &amp; CurrentRow(&quot;Outcome&quot;).ToString &amp; &quot;): &quot; &amp; CurrentRow(&quot;Message&quot;).ToString]" sap2010:WorkflowViewState.IdRef="LogMessage_2" />
               </If.Then>
             </If>
+            <If Condition="[CurrentRow(&quot;Outcome&quot;).ToString &lt;&gt; &quot;not reached&quot;]" DisplayName="If the checkpoint ran (steps after a failure are named in the failure's message instead)" sap2010:WorkflowViewState.IdRef="If_2">
+              <If.Then>
             <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" DisplayName="Verify the checkpoint with its Selenium screenshot" UnSafe="False" WorkflowFileName="Framework\VerifyWithEvidence.cs" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1">
               <ui:InvokeWorkflowFile.Arguments>
                 <scg:Dictionary x:TypeArguments="x:String, Argument">
@@ -62,6 +64,8 @@
                 </scg:Dictionary>
               </ui:InvokeWorkflowFile.Arguments>
             </ui:InvokeWorkflowFile>
+              </If.Then>
+            </If>
           </Sequence>
         </ActivityAction>
       </ui:ForEachRow.Body>

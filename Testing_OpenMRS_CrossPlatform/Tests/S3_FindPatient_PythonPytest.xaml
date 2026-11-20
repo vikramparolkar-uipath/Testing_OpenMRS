@@ -1,10 +1,11 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="Tests_S3_FindPatient_PythonPytest" this:Tests_S3_FindPatient_PythonPytest.in_BaseUrl="http://uilabsopenmrs.westeurope.cloudapp.azure.com:8080/openmrs" this:Tests_S3_FindPatient_PythonPytest.in_AssetFolder="OpenMRS" this:Tests_S3_FindPatient_PythonPytest.in_SeleniumRoot="..\SeleniumSuite" this:Tests_S3_FindPatient_PythonPytest.in_PatientQuery="Smith" this:Tests_S3_FindPatient_PythonPytest.in_Headless="False" mva:VisualBasic.Settings="{x:Null}" sap2010:WorkflowViewState.IdRef="ActivityBuilder_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=System.Private.CoreLib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data.Common" xmlns:this="clr-namespace:" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:uta="clr-namespace:UiPath.Testing.Activities;assembly=UiPath.Testing.Activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="Tests_S3_FindPatient_PythonPytest" this:Tests_S3_FindPatient_PythonPytest.in_BaseUrl="http://uilabsopenmrs.westeurope.cloudapp.azure.com:8080/openmrs" this:Tests_S3_FindPatient_PythonPytest.in_AssetFolder="OpenMRS" this:Tests_S3_FindPatient_PythonPytest.in_SeleniumRoot="..\SeleniumSuite" this:Tests_S3_FindPatient_PythonPytest.in_PatientQuery="Smith" this:Tests_S3_FindPatient_PythonPytest.in_Headless="False" this:Tests_S3_FindPatient_PythonPytest.in_SimulateDefect="True" mva:VisualBasic.Settings="{x:Null}" sap2010:WorkflowViewState.IdRef="ActivityBuilder_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=System.Private.CoreLib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data.Common" xmlns:this="clr-namespace:" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:uta="clr-namespace:UiPath.Testing.Activities;assembly=UiPath.Testing.Activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
     <x:Property Name="in_BaseUrl" Type="InArgument(x:String)" />
     <x:Property Name="in_AssetFolder" Type="InArgument(x:String)" />
     <x:Property Name="in_SeleniumRoot" Type="InArgument(x:String)" />
     <x:Property Name="in_PatientQuery" Type="InArgument(x:String)" />
     <x:Property Name="in_Headless" Type="InArgument(x:Boolean)" />
+    <x:Property Name="in_SimulateDefect" Type="InArgument(x:Boolean)" />
   </x:Members>
   <TextExpression.NamespacesForImplementation>
     <sco:Collection x:TypeArguments="x:String">
@@ -58,6 +59,7 @@
             <InArgument x:TypeArguments="x:String" x:Key="in_SeleniumRoot">[in_SeleniumRoot]</InArgument>
             <InArgument x:TypeArguments="x:String" x:Key="in_PatientQuery">[in_PatientQuery]</InArgument>
             <InArgument x:TypeArguments="x:Boolean" x:Key="in_Headless">[in_Headless]</InArgument>
+            <InArgument x:TypeArguments="x:Boolean" x:Key="in_SimulateDefect">[in_SimulateDefect]</InArgument>
             <OutArgument x:TypeArguments="x:Int32" x:Key="out_ExitCode">[exitCode]</OutArgument>
             <OutArgument x:TypeArguments="sd:DataTable" x:Key="out_dt_TestResults">[dt_SeleniumResults]</OutArgument>
             <OutArgument x:TypeArguments="x:String" x:Key="out_ResultsFolder">[resultsFolder]</OutArgument>
