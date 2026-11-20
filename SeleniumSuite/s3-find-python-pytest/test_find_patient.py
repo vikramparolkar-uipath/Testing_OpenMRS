@@ -90,9 +90,12 @@ def test_find_patient_by_name_then_id(driver, wait, login, config, check):
         seen = [r.text.replace("\n", " ") for r in rows(driver)]
     except StaleElementReferenceException:
         seen = ["(table was redrawing)"]
+    no_match = [s for s in seen if "No matching records found" in s]
+    matches = [s for s in seen if s not in no_match]
+    got = (f"got {len(matches)} matching rows" + (": the page says 'No matching records found'" if no_match and not matches
+                                                  else f". First rows: {matches[:5]}"))
     check("ID search returns exactly one match", found,
-          f"Searched for Patient ID '{patient_id}' (search box sent '{searched}'): "
-          f"expected exactly 1 matching row, got {len(seen)}. First rows: {seen[:5]}")
+          f"Searched for Patient ID '{patient_id}' (search box sent '{searched}'): expected exactly 1 matching row, {got}")
 
     # 3. Open the patient: the dashboard header shows the same ID and name
     def open_row(d):
