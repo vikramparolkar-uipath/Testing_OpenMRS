@@ -30,6 +30,14 @@ def simulate_defect():
     return os.environ.get("OMRS_SIMULATE_DEFECT", "false").lower() == "true"
 
 
+def garble(patient_id):
+    """The simulated regression: last two characters swapped. Never a prefix of the real ID, so the search
+    either finds nothing or a different patient - both fail the 'exactly one match' checkpoint."""
+    if len(patient_id) >= 2 and patient_id[-1] != patient_id[-2]:
+        return patient_id[:-2] + patient_id[-1] + patient_id[-2]
+    return "X" + patient_id[1:]
+
+
 def short_wait(driver):
     """10 s is plenty for a search to settle; keeps a failing check from waiting the full 30 s."""
     return WebDriverWait(driver, 10, ignored_exceptions=[StaleElementReferenceException])
@@ -69,9 +77,10 @@ def test_find_patient_by_name_then_id(driver, wait, login, config, check):
     check("First result has a Patient ID", patient_id, "The first search result shows no Patient ID")
 
     # 2. Search by that ID: exactly one match
-    # Demo switch: OMRS_SIMULATE_DEFECT=true imitates a regression in which the ID search loses the last
-    # character of what was typed, so this checkpoint fails and the run shows exactly where and why.
-    searched = patient_id[:-1] if simulate_defect() else patient_id
+    # Demo switch: OMRS_SIMULATE_DEFECT=true imitates a regression in which the ID search swaps the last two
+    # characters typed (1000V5 -> 10005V), so this checkpoint fails and the run shows exactly where and why.
+    # (Dropping a character is not enough: OpenMRS matches IDs by prefix, so "1000V" still finds 1000V5.)
+    searched = garble(patient_id) if simulate_defect() else patient_id
     if searched != patient_id:
         checkpoints.trail(f"SIMULATED DEFECT: ID search sends '{searched}' instead of '{patient_id}'")
     box.clear()
