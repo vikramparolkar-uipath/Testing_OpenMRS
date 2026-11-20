@@ -84,43 +84,22 @@ namespace Testing_OpenMRS_CrossPlatform
             Directory.CreateDirectory(resultsFolder);
             File.WriteAllText(Path.Combine(resultsFolder, "console.log"), console.ToString());
 
-            DataTable results = ParseJUnit(Path.Combine(resultsFolder, "junit.xml"));
-            Log($"{in_Scenario}: {results.Rows.Count} Selenium test(s), " +
+            // Safety net before anything is attached to Test Manager: no text file may contain the password
+            // (driver logs record sendKeys text, for example).
+            int redacted = SeleniumResults.RedactSecret(resultsFolder, psi.Environment["OMRS_PASSWORD"]);
+            psi.Environment["OMRS_PASSWORD"] = string.Empty;
+            if (redacted > 0) Log($"{in_Scenario}: password redacted from {redacted} result file(s)");
+
+            DataTable results = SeleniumResults.Read(resultsFolder);
+            Log($"{in_Scenario}: {results.Rows.Count} Selenium assertion(s), " +
                 $"{results.AsEnumerable().Count(r => (string)r["Outcome"] == "passed")} passed");
+            string report = SeleniumResults.WriteHtmlReport(results, resultsFolder, in_Scenario, in_BaseUrl, exitCode);
+            Log($"{in_Scenario}: report written to {report}");
 
             string outputPath = Path.Combine(resultsFolder, "output.json");
             string outputJson = File.Exists(outputPath) ? File.ReadAllText(outputPath) : string.Empty;
 
             return (out_ExitCode: exitCode, out_dt_TestResults: results, out_ResultsFolder: resultsFolder, out_OutputJson: outputJson);
-        }
-
-        /// <summary>One row per JUnit testcase: Name, Outcome (passed / failed / skipped), Message, Seconds.</summary>
-        private static DataTable ParseJUnit(string junitPath)
-        {
-            var table = new DataTable("SeleniumResults");
-            table.Columns.Add("Name", typeof(string));
-            table.Columns.Add("Outcome", typeof(string));
-            table.Columns.Add("Message", typeof(string));
-            table.Columns.Add("Seconds", typeof(double));
-
-            if (!File.Exists(junitPath))
-            {
-                table.Rows.Add("Selenium run produced results", "failed", $"No JUnit file at {junitPath}", 0d);
-                return table;
-            }
-
-            foreach (XElement testCase in XDocument.Load(junitPath).Descendants("testcase"))
-            {
-                XElement problem = testCase.Element("failure") ?? testCase.Element("error");
-                string outcome = problem != null ? "failed" : testCase.Element("skipped") != null ? "skipped" : "passed";
-                string message = problem == null ? string.Empty
-                    : ((string)problem.Attribute("message") ?? problem.Value).Trim();
-                if (message.Length > 500) message = message.Substring(0, 500) + "…";
-                double.TryParse((string)testCase.Attribute("time"), System.Globalization.NumberStyles.Float,
-                    System.Globalization.CultureInfo.InvariantCulture, out double seconds);
-                table.Rows.Add((string)testCase.Attribute("name"), outcome, message, seconds);
-            }
-            return table;
         }
     }
 }

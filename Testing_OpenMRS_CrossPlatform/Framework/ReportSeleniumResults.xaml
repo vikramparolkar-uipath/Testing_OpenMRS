@@ -44,18 +44,27 @@
           <ActivityAction.Argument>
             <DelegateInArgument x:TypeArguments="sd:DataRow" Name="CurrentRow" />
           </ActivityAction.Argument>
-          <Sequence DisplayName="Report one Selenium test" sap2010:WorkflowViewState.IdRef="Sequence_2">
-            <If Condition="[CurrentRow(&quot;Outcome&quot;).ToString &lt;&gt; &quot;passed&quot;]" DisplayName="If the Selenium test did not pass" sap2010:WorkflowViewState.IdRef="If_1">
+          <Sequence DisplayName="Report one Selenium checkpoint" sap2010:WorkflowViewState.IdRef="Sequence_2">
+            <If Condition="[CurrentRow(&quot;Outcome&quot;).ToString &lt;&gt; &quot;passed&quot;]" DisplayName="If the checkpoint did not pass" sap2010:WorkflowViewState.IdRef="If_1">
               <If.Then>
                 <ui:LogMessage DisplayName="Log the Selenium failure message" Level="Warn" Message="[CurrentRow(&quot;Name&quot;).ToString &amp; &quot; (&quot; &amp; CurrentRow(&quot;Outcome&quot;).ToString &amp; &quot;): &quot; &amp; CurrentRow(&quot;Message&quot;).ToString]" sap2010:WorkflowViewState.IdRef="LogMessage_2" />
               </If.Then>
             </If>
-            <uta:VerifyExpression AlternativeVerificationTitle="[in_ScenarioLabel &amp; &quot; | &quot; &amp; CurrentRow(&quot;Name&quot;).ToString]" DisplayName="Verify the Selenium test passed" Expression="[CurrentRow(&quot;Outcome&quot;).ToString = &quot;passed&quot;]" KeepScreenshots="{x:Null}" OutputMessageFormat="{x:Null}" Result="{x:Null}" ScreenshotsPath="{x:Null}" ContinueOnFailure="True" TakeScreenshotInCaseOfFailingAssertion="False" TakeScreenshotInCaseOfSucceedingAssertion="False" sap2010:WorkflowViewState.IdRef="VerifyExpression_1" />
+            <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" DisplayName="Verify the checkpoint with its Selenium screenshot" UnSafe="False" WorkflowFileName="Framework\VerifyWithEvidence.cs" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1">
+              <ui:InvokeWorkflowFile.Arguments>
+                <scg:Dictionary x:TypeArguments="x:String, Argument">
+                  <InArgument x:TypeArguments="x:String" x:Key="in_Title">[in_ScenarioLabel &amp; " | " &amp; CurrentRow("Test").ToString &amp; " | " &amp; CurrentRow("Step").ToString &amp; ". " &amp; CurrentRow("Name").ToString]</InArgument>
+                  <InArgument x:TypeArguments="x:Boolean" x:Key="in_Passed">[CurrentRow("Outcome").ToString = "passed"]</InArgument>
+                  <InArgument x:TypeArguments="x:String" x:Key="in_Message">[If(CurrentRow("Outcome").ToString = "passed", "", CurrentRow("Outcome").ToString.ToUpper &amp; ": " &amp; CurrentRow("Message").ToString)]</InArgument>
+                  <InArgument x:TypeArguments="x:String" x:Key="in_ScreenshotPath">[CurrentRow("Screenshot").ToString]</InArgument>
+                </scg:Dictionary>
+              </ui:InvokeWorkflowFile.Arguments>
+            </ui:InvokeWorkflowFile>
           </Sequence>
         </ActivityAction>
       </ui:ForEachRow.Body>
     </ui:ForEachRow>
-    <ui:ForEach x:TypeArguments="x:String" CurrentIndex="{x:Null}" DisplayName="For each evidence file" Values="[New String() {&quot;junit.xml&quot;, &quot;console.log&quot;, &quot;output.json&quot;}.Select(Function(f) Path.Combine(in_ResultsFolder, f)).Where(Function(f) File.Exists(f)).Concat(If(Directory.Exists(Path.Combine(in_ResultsFolder, &quot;screenshots&quot;)), Directory.GetFiles(Path.Combine(in_ResultsFolder, &quot;screenshots&quot;), &quot;*.png&quot;), New String() {}))]" sap2010:WorkflowViewState.IdRef="ForEach`1_1">
+    <ui:ForEach x:TypeArguments="x:String" CurrentIndex="{x:Null}" DisplayName="For each evidence file" Values="[New String() {&quot;SeleniumReport.html&quot;, &quot;execution-trail.log&quot;, &quot;browser-console.log&quot;, &quot;webdriver.log&quot;, &quot;console.log&quot;, &quot;checkpoints.json&quot;, &quot;junit.xml&quot;, &quot;output.json&quot;}.Select(Function(f) Path.Combine(in_ResultsFolder, f)).Where(Function(f) File.Exists(f)).Concat(If(Directory.Exists(Path.Combine(in_ResultsFolder, &quot;screenshots&quot;)), Directory.GetFiles(Path.Combine(in_ResultsFolder, &quot;screenshots&quot;), &quot;*.png&quot;).OrderBy(Function(f) f), Enumerable.Empty(Of String)()))]" sap2010:WorkflowViewState.IdRef="ForEach`1_1">
       <ui:ForEach.Body>
         <ActivityAction x:TypeArguments="x:String">
           <ActivityAction.Argument>

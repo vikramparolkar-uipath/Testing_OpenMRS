@@ -22,6 +22,8 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
+import checkpoints
+
 RESULTS = Path(__file__).parent / "results"
 SHOTS = RESULTS / "screenshots"
 
@@ -51,11 +53,39 @@ def driver(request):
     options.add_argument("--window-size=1366,900")
     if os.environ.get("OMRS_HEADLESS", "false").lower() == "true":
         options.add_argument("--headless=new")
-    drv = webdriver.Chrome(options=options) if browser == "chrome" else webdriver.Edge(options=options)
+    # Selenium's own logging: the browser console (JavaScript errors) and the driver log (every WebDriver command)
+    options.set_capability("goog:loggingPrefs" if browser == "chrome" else "ms:loggingPrefs", {"browser": "ALL"})
+    RESULTS.mkdir(parents=True, exist_ok=True)
+    driver_log = str(RESULTS / "webdriver.log")
+    service_args = ["--log-level=INFO", "--append-log"]
+    if browser == "chrome":
+        drv = webdriver.Chrome(options=options, service=webdriver.ChromeService(log_output=driver_log, service_args=service_args))
+    else:
+        drv = webdriver.Edge(options=options, service=webdriver.EdgeService(log_output=driver_log, service_args=service_args))
+    checkpoints.trail(f"{request.node.name} | started ({browser}, {drv.capabilities.get('browserVersion', '?')})")
     yield drv
     SHOTS.mkdir(parents=True, exist_ok=True)
     drv.save_screenshot(str(SHOTS / f"{re.sub(r'[^A-Za-z0-9_-]', '_', request.node.name)}.png"))
+    try:
+        entries = drv.get_log("browser")
+        with (RESULTS / "browser-console.log").open("a", encoding="utf-8") as f:
+            f.write(f"===== {request.node.name} ({len(entries)} entries)\n")
+            for e in entries:
+                f.write(f"{e.get('level')}  {e.get('message')}\n")
+    except Exception as ex:          # not every browser/driver exposes the console log
+        checkpoints.trail(f"{request.node.name} | browser console log not available: {type(ex).__name__}")
+    outcome = "FAILED" if getattr(request.node, "rep_call", None) and request.node.rep_call.failed else "PASSED"
+    checkpoints.trail(f"{request.node.name} | finished: {outcome}")
     drv.quit()
+
+
+@pytest.hookimpl(hookwrapper=True)
+def pytest_runtest_makereport(item, call):
+    """Make each test's outcome available to its fixtures (for the execution trail)."""
+    outcome = yield
+    report = outcome.get_result()
+    if report.when == "call":
+        item.rep_call = report
 
 
 @pytest.fixture
@@ -78,6 +108,27 @@ def login(driver, wait, config):
         driver.find_element(By.ID, "loginButton").click()
         wait.until(EC.url_contains("home.page"))
     return _login
+
+
+@pytest.fixture(scope="session", autouse=True)
+def _fresh_checkpoint_log():
+    checkpoints.reset()
+    log = RESULTS / "webdriver.log"
+    if log.exists():
+        log.unlink()
+    yield
+    # The driver log records sendKeys text, including the password typed at login: redact it before anyone reads it
+    secret = os.environ.get("OMRS_PASSWORD")
+    if secret and log.exists():
+        log.write_text(log.read_text(encoding="utf-8", errors="replace").replace(secret, "********"), encoding="utf-8")
+
+
+@pytest.fixture
+def check(driver, request):
+    """Named checkpoint with its own screenshot: check("what is true", condition, "detail if not")."""
+    cp = checkpoints.Checkpoints(driver, request.node.name)
+    yield cp
+    cp.close()
 
 
 def write_output(data):
