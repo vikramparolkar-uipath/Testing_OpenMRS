@@ -77,8 +77,30 @@
           </scg:Dictionary>
         </ui:InvokeWorkflowFile.Arguments>
       </ui:InvokeWorkflowFile>
-      <uta:VerifyExpression AlternativeVerificationTitle="S2 C# | Selenium suite exit code is 0" DisplayName="Verify the Selenium suite exit code is 0" Expression="[exitCode = 0]" KeepScreenshots="{x:Null}" OutputMessageFormat="{x:Null}" Result="{x:Null}" ScreenshotsPath="{x:Null}" ContinueOnFailure="True" TakeScreenshotInCaseOfFailingAssertion="False" TakeScreenshotInCaseOfSucceedingAssertion="False" sap2010:WorkflowViewState.IdRef="VerifyExpression_1" />
-      <uta:VerifyExpression AlternativeVerificationTitle="S2 C# | Selenium returned the new Patient ID" DisplayName="Verify Selenium returned the new Patient ID" Expression="[Not String.IsNullOrWhiteSpace(outputJson)]" KeepScreenshots="{x:Null}" OutputMessageFormat="{x:Null}" Result="{x:Null}" ScreenshotsPath="{x:Null}" ContinueOnFailure="True" TakeScreenshotInCaseOfFailingAssertion="False" TakeScreenshotInCaseOfSucceedingAssertion="False" sap2010:WorkflowViewState.IdRef="VerifyExpression_2" />
+      <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" DisplayName="Verify the Selenium suite exit code is 0" UnSafe="False" WorkflowFileName="Framework\VerifyWithEvidence.cs" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_V1">
+        <ui:InvokeWorkflowFile.Arguments>
+          <scg:Dictionary x:TypeArguments="x:String, Argument">
+            <InArgument x:TypeArguments="x:String" x:Key="in_Title">["S2 C# | Selenium suite exit code is 0"]</InArgument>
+            <InArgument x:TypeArguments="x:Boolean" x:Key="in_Passed">[exitCode = 0]</InArgument>
+            <InArgument x:TypeArguments="x:String" x:Key="in_Message">[""]</InArgument>
+            <InArgument x:TypeArguments="x:String" x:Key="in_ScreenshotPath">[""]</InArgument>
+            <InArgument x:TypeArguments="x:String" x:Key="in_Details">["Selenium suite exit code: " &amp; exitCode.ToString &amp; vbLf &amp; "Results folder: " &amp; resultsFolder]</InArgument>
+            <InArgument x:TypeArguments="x:String" x:Key="in_DetailsFile">[resultsFolder &amp; "\console.log"]</InArgument>
+          </scg:Dictionary>
+        </ui:InvokeWorkflowFile.Arguments>
+      </ui:InvokeWorkflowFile>
+      <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" DisplayName="Verify Selenium returned the new Patient ID" UnSafe="False" WorkflowFileName="Framework\VerifyWithEvidence.cs" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_V2">
+        <ui:InvokeWorkflowFile.Arguments>
+          <scg:Dictionary x:TypeArguments="x:String, Argument">
+            <InArgument x:TypeArguments="x:String" x:Key="in_Title">["S2 C# | Selenium returned the new Patient ID"]</InArgument>
+            <InArgument x:TypeArguments="x:Boolean" x:Key="in_Passed">[Not String.IsNullOrWhiteSpace(outputJson)]</InArgument>
+            <InArgument x:TypeArguments="x:String" x:Key="in_Message">[""]</InArgument>
+            <InArgument x:TypeArguments="x:String" x:Key="in_ScreenshotPath">[""]</InArgument>
+            <InArgument x:TypeArguments="x:String" x:Key="in_Details">["output.json written by the C# Selenium suite:" &amp; vbLf &amp; outputJson]</InArgument>
+            <InArgument x:TypeArguments="x:String" x:Key="in_DetailsFile">[""]</InArgument>
+          </scg:Dictionary>
+        </ui:InvokeWorkflowFile.Arguments>
+      </ui:InvokeWorkflowFile>
       <If Condition="[Not String.IsNullOrWhiteSpace(outputJson)]" DisplayName="If Selenium registered a patient" sap2010:WorkflowViewState.IdRef="If_1">
         <If.Then>
           <Sequence DisplayName="Check the new patient through the OpenMRS REST API" sap2010:WorkflowViewState.IdRef="Sequence_5">
@@ -147,10 +169,54 @@
                   </scg:Dictionary>
                 </ui:InvokeWorkflowFile.Arguments>
               </ui:InvokeWorkflowFile>
-              <uta:VerifyExpression AlternativeVerificationTitle="S2 C# | REST API finds the new Patient ID" DisplayName="Verify rest api finds the new patient id" Expression="[foundInRest]" KeepScreenshots="{x:Null}" OutputMessageFormat="{x:Null}" Result="{x:Null}" ScreenshotsPath="{x:Null}" ContinueOnFailure="True" TakeScreenshotInCaseOfFailingAssertion="False" TakeScreenshotInCaseOfSucceedingAssertion="False" sap2010:WorkflowViewState.IdRef="VerifyExpression_3" />
-              <uta:VerifyExpression AlternativeVerificationTitle="S2 C# | REST name matches what Selenium typed" DisplayName="Verify rest name matches what selenium typed" Expression="[restFullName = givenName &amp; &quot; &quot; &amp; familyName]" KeepScreenshots="{x:Null}" OutputMessageFormat="{x:Null}" Result="{x:Null}" ScreenshotsPath="{x:Null}" ContinueOnFailure="True" TakeScreenshotInCaseOfFailingAssertion="False" TakeScreenshotInCaseOfSucceedingAssertion="False" sap2010:WorkflowViewState.IdRef="VerifyExpression_4" />
-              <uta:VerifyExpression AlternativeVerificationTitle="S2 C# | REST gender matches what Selenium typed" DisplayName="Verify rest gender matches what selenium typed" Expression="[restGender = expectedGender]" KeepScreenshots="{x:Null}" OutputMessageFormat="{x:Null}" Result="{x:Null}" ScreenshotsPath="{x:Null}" ContinueOnFailure="True" TakeScreenshotInCaseOfFailingAssertion="False" TakeScreenshotInCaseOfSucceedingAssertion="False" sap2010:WorkflowViewState.IdRef="VerifyExpression_5" />
-              <uta:VerifyExpression AlternativeVerificationTitle="S2 C# | REST birthdate matches what Selenium typed" DisplayName="Verify rest birthdate matches what selenium typed" Expression="[restBirthdate = expectedBirthdate]" KeepScreenshots="{x:Null}" OutputMessageFormat="{x:Null}" Result="{x:Null}" ScreenshotsPath="{x:Null}" ContinueOnFailure="True" TakeScreenshotInCaseOfFailingAssertion="False" TakeScreenshotInCaseOfSucceedingAssertion="False" sap2010:WorkflowViewState.IdRef="VerifyExpression_6" />
+              <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" DisplayName="Verify rest api finds the new patient id" UnSafe="False" WorkflowFileName="Framework\VerifyWithEvidence.cs" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_V3">
+                <ui:InvokeWorkflowFile.Arguments>
+                  <scg:Dictionary x:TypeArguments="x:String, Argument">
+                    <InArgument x:TypeArguments="x:String" x:Key="in_Title">["S2 C# | REST API finds the new Patient ID"]</InArgument>
+                    <InArgument x:TypeArguments="x:Boolean" x:Key="in_Passed">[foundInRest]</InArgument>
+                    <InArgument x:TypeArguments="x:String" x:Key="in_Message">[""]</InArgument>
+                    <InArgument x:TypeArguments="x:String" x:Key="in_ScreenshotPath">[""]</InArgument>
+                    <InArgument x:TypeArguments="x:String" x:Key="in_Details">["GET /ws/rest/v1/patient?q=" &amp; patientId &amp; vbLf &amp; "Result: " &amp; If(foundInRest, "patient found", "no patient found")]</InArgument>
+                    <InArgument x:TypeArguments="x:String" x:Key="in_DetailsFile">[""]</InArgument>
+                  </scg:Dictionary>
+                </ui:InvokeWorkflowFile.Arguments>
+              </ui:InvokeWorkflowFile>
+              <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" DisplayName="Verify rest name matches what selenium typed" UnSafe="False" WorkflowFileName="Framework\VerifyWithEvidence.cs" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_V4">
+                <ui:InvokeWorkflowFile.Arguments>
+                  <scg:Dictionary x:TypeArguments="x:String, Argument">
+                    <InArgument x:TypeArguments="x:String" x:Key="in_Title">["S2 C# | REST name matches what Selenium typed"]</InArgument>
+                    <InArgument x:TypeArguments="x:Boolean" x:Key="in_Passed">[restFullName = givenName &amp; " " &amp; familyName]</InArgument>
+                    <InArgument x:TypeArguments="x:String" x:Key="in_Message">[""]</InArgument>
+                    <InArgument x:TypeArguments="x:String" x:Key="in_ScreenshotPath">[""]</InArgument>
+                    <InArgument x:TypeArguments="x:String" x:Key="in_Details">["Selenium typed:  " &amp; givenName &amp; " " &amp; familyName &amp; vbLf &amp; "REST returned:   " &amp; restFullName]</InArgument>
+                    <InArgument x:TypeArguments="x:String" x:Key="in_DetailsFile">[""]</InArgument>
+                  </scg:Dictionary>
+                </ui:InvokeWorkflowFile.Arguments>
+              </ui:InvokeWorkflowFile>
+              <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" DisplayName="Verify rest gender matches what selenium typed" UnSafe="False" WorkflowFileName="Framework\VerifyWithEvidence.cs" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_V5">
+                <ui:InvokeWorkflowFile.Arguments>
+                  <scg:Dictionary x:TypeArguments="x:String, Argument">
+                    <InArgument x:TypeArguments="x:String" x:Key="in_Title">["S2 C# | REST gender matches what Selenium typed"]</InArgument>
+                    <InArgument x:TypeArguments="x:Boolean" x:Key="in_Passed">[restGender = expectedGender]</InArgument>
+                    <InArgument x:TypeArguments="x:String" x:Key="in_Message">[""]</InArgument>
+                    <InArgument x:TypeArguments="x:String" x:Key="in_ScreenshotPath">[""]</InArgument>
+                    <InArgument x:TypeArguments="x:String" x:Key="in_Details">["Selenium chose:  " &amp; expectedGender &amp; vbLf &amp; "REST returned:   " &amp; restGender]</InArgument>
+                    <InArgument x:TypeArguments="x:String" x:Key="in_DetailsFile">[""]</InArgument>
+                  </scg:Dictionary>
+                </ui:InvokeWorkflowFile.Arguments>
+              </ui:InvokeWorkflowFile>
+              <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" DisplayName="Verify rest birthdate matches what selenium typed" UnSafe="False" WorkflowFileName="Framework\VerifyWithEvidence.cs" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_V6">
+                <ui:InvokeWorkflowFile.Arguments>
+                  <scg:Dictionary x:TypeArguments="x:String, Argument">
+                    <InArgument x:TypeArguments="x:String" x:Key="in_Title">["S2 C# | REST birthdate matches what Selenium typed"]</InArgument>
+                    <InArgument x:TypeArguments="x:Boolean" x:Key="in_Passed">[restBirthdate = expectedBirthdate]</InArgument>
+                    <InArgument x:TypeArguments="x:String" x:Key="in_Message">[""]</InArgument>
+                    <InArgument x:TypeArguments="x:String" x:Key="in_ScreenshotPath">[""]</InArgument>
+                    <InArgument x:TypeArguments="x:String" x:Key="in_Details">["Selenium entered: " &amp; expectedBirthdate &amp; vbLf &amp; "REST returned:    " &amp; restBirthdate]</InArgument>
+                    <InArgument x:TypeArguments="x:String" x:Key="in_DetailsFile">[""]</InArgument>
+                  </scg:Dictionary>
+                </ui:InvokeWorkflowFile.Arguments>
+              </ui:InvokeWorkflowFile>
           </Sequence>
         </If.Then>
       </If>

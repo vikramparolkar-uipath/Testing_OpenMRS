@@ -63,9 +63,29 @@ namespace Testing_OpenMRS_CrossPlatform
                 string message = problem == null ? string.Empty : Trim(((string)problem.Attribute("message") ?? problem.Value));
                 double.TryParse((string)tc.Attribute("time"), NumberStyles.Float, CultureInfo.InvariantCulture, out double seconds);
                 string name = (string)tc.Attribute("name") ?? "test";
-                string shot = Path.Combine(resultsFolder, "screenshots", Regex.Replace(name, "[^A-Za-z0-9_-]", "_") + ".png");
-                table.Rows.Add(name, 1, name, outcome, message, File.Exists(shot) ? shot : string.Empty, seconds);
+                table.Rows.Add(name, 1, name, outcome, message, FindScreenshot(resultsFolder, name), seconds);
             }
+        }
+
+        /// <summary>
+        /// The screenshot a suite saved for one test. Suites name the file after the test, but not always the same way
+        /// the JUnit report names it: RSpec and Mocha report "group title + example title" while the file carries only
+        /// the example title. So: exact name first, then the longest file name the test name ends with (or contains).
+        /// </summary>
+        private static string FindScreenshot(string resultsFolder, string testName)
+        {
+            string folder = Path.Combine(resultsFolder, "screenshots");
+            if (!Directory.Exists(folder)) return string.Empty;
+            string Norm(string s) => Regex.Replace(s, "[^A-Za-z0-9]+", "_").Trim('_').ToLowerInvariant();
+            string wanted = Norm(testName);
+            var files = Directory.GetFiles(folder, "*.png")
+                .Select(f => (Path: f, Key: Norm(Path.GetFileNameWithoutExtension(f))))
+                .Where(f => f.Key.Length > 0)
+                .ToList();
+            return files.FirstOrDefault(f => f.Key == wanted).Path
+                ?? files.Where(f => wanted.EndsWith(f.Key)).OrderByDescending(f => f.Key.Length).Select(f => f.Path).FirstOrDefault()
+                ?? files.Where(f => wanted.Contains(f.Key)).OrderByDescending(f => f.Key.Length).Select(f => f.Path).FirstOrDefault()
+                ?? string.Empty;
         }
 
         /// <summary>Writes results/SeleniumReport.html with every assertion and its screenshot embedded.</summary>

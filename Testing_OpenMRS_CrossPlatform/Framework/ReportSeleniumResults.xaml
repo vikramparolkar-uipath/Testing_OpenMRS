@@ -57,6 +57,8 @@
                   <InArgument x:TypeArguments="x:Boolean" x:Key="in_Passed">[CurrentRow("Outcome").ToString = "passed"]</InArgument>
                   <InArgument x:TypeArguments="x:String" x:Key="in_Message">[If(CurrentRow("Outcome").ToString = "passed", "", CurrentRow("Outcome").ToString.ToUpper &amp; ": " &amp; CurrentRow("Message").ToString)]</InArgument>
                   <InArgument x:TypeArguments="x:String" x:Key="in_ScreenshotPath">[CurrentRow("Screenshot").ToString]</InArgument>
+                  <InArgument x:TypeArguments="x:String" x:Key="in_Details">["Selenium test: " &amp; CurrentRow("Test").ToString &amp; vbLf &amp; "Outcome: " &amp; CurrentRow("Outcome").ToString &amp; If(CurrentRow("Message").ToString = "", "", vbLf &amp; vbLf &amp; CurrentRow("Message").ToString)]</InArgument>
+                  <InArgument x:TypeArguments="x:String" x:Key="in_DetailsFile">[""]</InArgument>
                 </scg:Dictionary>
               </ui:InvokeWorkflowFile.Arguments>
             </ui:InvokeWorkflowFile>
@@ -64,7 +66,7 @@
         </ActivityAction>
       </ui:ForEachRow.Body>
     </ui:ForEachRow>
-    <ui:ForEach x:TypeArguments="x:String" CurrentIndex="{x:Null}" DisplayName="For each evidence file" Values="[New String() {&quot;SeleniumReport.html&quot;, &quot;execution-trail.log&quot;, &quot;browser-console.log&quot;, &quot;webdriver.log&quot;, &quot;console.log&quot;, &quot;checkpoints.json&quot;, &quot;junit.xml&quot;, &quot;output.json&quot;}.Select(Function(f) Path.Combine(in_ResultsFolder, f)).Where(Function(f) File.Exists(f)).Concat(If(Directory.Exists(Path.Combine(in_ResultsFolder, &quot;screenshots&quot;)), Directory.GetFiles(Path.Combine(in_ResultsFolder, &quot;screenshots&quot;), &quot;*.png&quot;).OrderBy(Function(f) f), Enumerable.Empty(Of String)()))]" sap2010:WorkflowViewState.IdRef="ForEach`1_1">
+    <ui:ForEach x:TypeArguments="x:String" CurrentIndex="{x:Null}" DisplayName="For each evidence file (report, logs, data; screenshots live on the assertions)" Values="[New String() {&quot;SeleniumReport.html&quot;, &quot;execution-trail.log&quot;, &quot;browser-console.log&quot;, &quot;webdriver.log&quot;, &quot;console.log&quot;, &quot;checkpoints.json&quot;, &quot;junit.xml&quot;, &quot;output.json&quot;}.Select(Function(f) Path.Combine(in_ResultsFolder, f)).Where(Function(f) File.Exists(f))]" sap2010:WorkflowViewState.IdRef="ForEach`1_1">
       <ui:ForEach.Body>
         <ActivityAction x:TypeArguments="x:String">
           <ActivityAction.Argument>

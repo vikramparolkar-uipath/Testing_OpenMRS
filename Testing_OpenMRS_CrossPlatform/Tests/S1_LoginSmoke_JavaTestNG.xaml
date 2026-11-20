@@ -86,7 +86,18 @@
           <InArgument x:TypeArguments="x:String" x:Key="in_ResultsFolder">[resultsFolder]</InArgument>
         </ui:InvokeWorkflowFile.Arguments>
       </ui:InvokeWorkflowFile>
-      <uta:VerifyExpression KeepScreenshots="{x:Null}" OutputMessageFormat="{x:Null}" Result="{x:Null}" ScreenshotsPath="{x:Null}" AlternativeVerificationTitle="[&quot;S1 Java &quot; &amp; in_Persona &amp; &quot; | Selenium suite exit code is 0&quot;]" ContinueOnFailure="True" DisplayName="Verify the Selenium suite exit code is 0" Expression="[exitCode = 0]" sap2010:WorkflowViewState.IdRef="VerifyExpression_1" TakeScreenshotInCaseOfFailingAssertion="False" TakeScreenshotInCaseOfSucceedingAssertion="False" />
+      <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" DisplayName="Verify the Selenium suite exit code is 0" UnSafe="False" WorkflowFileName="Framework\VerifyWithEvidence.cs" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_V1">
+        <ui:InvokeWorkflowFile.Arguments>
+          <scg:Dictionary x:TypeArguments="x:String, Argument">
+            <InArgument x:TypeArguments="x:String" x:Key="in_Title">["S1 Java " &amp; in_Persona &amp; " | Selenium suite exit code is 0"]</InArgument>
+            <InArgument x:TypeArguments="x:Boolean" x:Key="in_Passed">[exitCode = 0]</InArgument>
+            <InArgument x:TypeArguments="x:String" x:Key="in_Message">[""]</InArgument>
+            <InArgument x:TypeArguments="x:String" x:Key="in_ScreenshotPath">[""]</InArgument>
+            <InArgument x:TypeArguments="x:String" x:Key="in_Details">["Selenium suite exit code: " &amp; exitCode.ToString &amp; vbLf &amp; "Results folder: " &amp; resultsFolder]</InArgument>
+            <InArgument x:TypeArguments="x:String" x:Key="in_DetailsFile">[resultsFolder &amp; "\console.log"]</InArgument>
+          </scg:Dictionary>
+        </ui:InvokeWorkflowFile.Arguments>
+      </ui:InvokeWorkflowFile>
     </Sequence>
   </Sequence>
 </Activity>
