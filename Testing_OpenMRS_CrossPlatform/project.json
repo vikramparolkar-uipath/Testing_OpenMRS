@@ -1,7 +1,7 @@
-﻿{
+{
   "name": "Testing_OpenMRS_CrossPlatform",
   "projectId": "a92214ed-a0fd-45ce-920f-a71fe2a94d8b",
-  "description": "Medica demo: UiPath Test Manager running existing Selenium suites (Java, C#, Python, JavaScript, Ruby) against OpenMRS",
+  "description": "Demo: UiPath Test Manager running existing Selenium suites (Java, C#, Python, JavaScript, Ruby) against OpenMRS",
   "main": "Main.xaml",
   "dependencies": {
     "UiPath.System.Activities": "[26.10.1]",
