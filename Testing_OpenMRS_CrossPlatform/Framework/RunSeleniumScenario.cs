@@ -31,11 +31,8 @@ namespace Testing_OpenMRS_CrossPlatform
             string in_PatientQuery,
             bool in_Headless)
         {
-            // A relative path (the default "..\SeleniumSuite", next to the project) is resolved against the project folder
-            in_SeleniumRoot = Path.GetFullPath(in_SeleniumRoot);
+            in_SeleniumRoot = ResolveSeleniumRoot(in_SeleniumRoot);
             string script = Path.Combine(in_SeleniumRoot, "run-scenario.ps1");
-            if (!File.Exists(script))
-                throw new FileNotFoundException($"Selenium suite runner not found: {script}");
 
             string scenarioFolder = Directory.GetDirectories(in_SeleniumRoot, in_Scenario.ToLowerInvariant() + "-*").FirstOrDefault()
                 ?? throw new DirectoryNotFoundException($"No folder for scenario {in_Scenario} under {in_SeleniumRoot}");
@@ -100,6 +97,29 @@ namespace Testing_OpenMRS_CrossPlatform
             string outputJson = File.Exists(outputPath) ? File.ReadAllText(outputPath) : string.Empty;
 
             return (out_ExitCode: exitCode, out_dt_TestResults: results, out_ResultsFolder: resultsFolder, out_OutputJson: outputJson);
+        }
+
+        /// <summary>
+        /// Finds the Selenium suite. From Studio the default "..\SeleniumSuite" sits next to the project, but a robot
+        /// runs the published package from its NuGet cache, where a relative path points nowhere. So, in order:
+        /// the argument as given, the SELENIUM_SUITE_ROOT environment variable, then the repo clone in Documents\UiPath.
+        /// </summary>
+        private static string ResolveSeleniumRoot(string given)
+        {
+            var candidates = new List<string>();
+            if (!string.IsNullOrWhiteSpace(given)) candidates.Add(Path.GetFullPath(given));
+            string fromEnv = Environment.GetEnvironmentVariable("SELENIUM_SUITE_ROOT");
+            if (!string.IsNullOrWhiteSpace(fromEnv)) candidates.Add(Path.GetFullPath(fromEnv));
+            candidates.Add(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+                "UiPath", "Testing_OpenMRS", "SeleniumSuite"));
+            candidates.Add(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile),
+                "Documents", "UiPath", "Testing_OpenMRS", "SeleniumSuite"));
+
+            string found = candidates.FirstOrDefault(c => File.Exists(Path.Combine(c, "run-scenario.ps1")));
+            if (found == null)
+                throw new FileNotFoundException("Selenium suite runner (run-scenario.ps1) not found. Looked in: "
+                    + string.Join("; ", candidates.Distinct()) + ". Pass in_SeleniumRoot or set SELENIUM_SUITE_ROOT.");
+            return found;
         }
     }
 }
