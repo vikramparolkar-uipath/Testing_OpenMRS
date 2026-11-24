@@ -45,7 +45,7 @@ $env:OMRS_USERNAME = 'nurse'; $env:OMRS_PASSWORD = '<from credential asset>'
 powershell -ExecutionPolicy Bypass -File run-scenario.ps1 -Scenario S3
 ```
 
-Each scenario's native command is what `run-scenario.ps1` runs. These are the commands Capgemini would already use:
+Each scenario's native command is what `run-scenario.ps1` runs. These are the commands a Selenium team would already use:
 
 | # | Folder | Native command |
 |---|---|---|
