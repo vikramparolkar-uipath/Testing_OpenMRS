@@ -29,6 +29,12 @@ if (-not $env:OMRS_PASSWORD) { throw 'Environment variable OMRS_PASSWORD is requ
 
 # Find toolchains that a fresh install may not have put on PATH yet
 function Add-ToPath($path) { if ($path -and (Test-Path $path)) { $env:Path = "$path;$env:Path" } }
+# Portable toolchains from Framework\Bootstrap-SeleniumSuite.ps1 (fresh robot machines, e.g. a cloud VM pool)
+$tools = $env:SELENIUM_TOOLS
+if ($tools -and (Test-Path $tools)) {
+    foreach ($bin in 'dotnet', 'ruby\bin', 'node', 'python\Scripts', 'python', 'maven\bin', 'jdk\bin') { Add-ToPath (Join-Path $tools $bin) }
+    if (Test-Path "$tools\jdk\bin\javac.exe") { $env:JAVA_HOME = "$tools\jdk" }
+}
 if (-not (Get-Command mvn -ErrorAction SilentlyContinue)) {
     Add-ToPath (Get-ChildItem "$env:USERPROFILE\tools\apache-maven-*\bin" -Directory -ErrorAction SilentlyContinue | Select-Object -Last 1).FullName
 }
@@ -61,7 +67,8 @@ switch ($Scenario) {
         Get-ChildItem Env: | Where-Object { $_.Name -match '^(DOTNET_ROOT|DOTNET_HOST_PATH|DOTNET_MSBUILD_SDK_RESOLVER|MSBuild|MSBUILD)' } |
             ForEach-Object { Remove-Item "Env:$($_.Name)" }
         $dotnet = Join-Path $env:ProgramFiles 'dotnet\dotnet.exe'
-        if (-not (Test-Path $dotnet)) { $dotnet = 'dotnet' }
+        if ($tools -and (Test-Path "$tools\dotnet\dotnet.exe")) { $dotnet = "$tools\dotnet\dotnet.exe" }
+        elseif (-not (Test-Path $dotnet)) { $dotnet = 'dotnet' }
         & $dotnet test --logger 'junit;LogFilePath=results/junit.xml' --logger 'console;verbosity=normal'
         $code = $LASTEXITCODE
     }
