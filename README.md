@@ -103,7 +103,7 @@ Defaults are set, so nothing has to be changed. To point somewhere else, change 
 | Argument | Default | Notes |
 |---|---|---|
 | `in_BaseUrl` | `http://uilabsopenmrs.westeurope.cloudapp.azure.com:8080/openmrs` | OpenMRS server |
-| `in_AssetFolder` | `OpenMRS` | Orchestrator folder with the four credential assets |
+| `in_AssetFolder` | empty (the job's folder) | Orchestrator folder with the four credential assets. For a Studio run, set it to `OpenMRS` or pick that folder in Studio |
 | `in_SeleniumRoot` | `..\SeleniumSuite` | Relative to the project folder |
 | `in_Headless` | `False` | `True` hides the browser |
 | `in_PatientQuery` (S3, S4) | `Smith` | Patient to search for |

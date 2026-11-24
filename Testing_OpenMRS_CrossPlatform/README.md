@@ -25,7 +25,7 @@ Each test case follows Given / When / Then:
 | Argument | Default | Notes |
 |---|---|---|
 | `in_BaseUrl` | `http://uilabsopenmrs.westeurope.cloudapp.azure.com:8080/openmrs` | Local copy: `http://localhost:8081/openmrs-standalone` |
-| `in_AssetFolder` | `OpenMRS` | Orchestrator folder that holds the persona credential assets. Leave it empty on an Orchestrator job to use the job's folder |
+| `in_AssetFolder` | empty | Orchestrator folder that holds the persona credential assets. Empty uses the job's own folder (OpenMRS or OpenSource; the assets are shared to both). In Studio, set it or pick the folder in Studio's Orchestrator folder selector |
 | `in_SeleniumRoot` | `..\SeleniumSuite` | The Selenium suites sit next to the project, the way a customer's would sit in their own repo. A relative path resolves against the project folder |
 | `in_Headless` | `False` | `True` hides the browser |
 | `in_PatientQuery` (S3, S4) | `Smith` | Name to search |

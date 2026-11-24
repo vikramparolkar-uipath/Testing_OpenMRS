@@ -10,10 +10,26 @@
   %USERPROFILE%\tools (checksum verified). Some installers ask for admin rights.
   -Prepare restores each suite's packages once (Maven, NuGet, pip, npm, gems), so the first demo run is quick.
   Restart UiPath Studio afterwards so it sees the new PATH.
+
+  The script also works as a standalone copy (for example on the Desktop). Check and -Install need nothing else;
+  -Prepare finds SeleniumSuite next to the repo's Setup folder, in the usual clone locations, or where -SuitePath says:
+    powershell -ExecutionPolicy Bypass -File Install-Prerequisites.ps1 -Prepare -SuitePath C:\path\Testing_OpenMRS\SeleniumSuite
 #>
-param([switch]$Install, [switch]$Prepare)
+param([switch]$Install, [switch]$Prepare, [string]$SuitePath)
 $ErrorActionPreference = 'Continue'
-$suite = Join-Path (Split-Path $PSScriptRoot -Parent) 'SeleniumSuite'
+
+function Find-Suite {
+    if ($SuitePath) { return $SuitePath }
+    $candidates = @(
+        (Join-Path (Split-Path $PSScriptRoot -Parent) 'SeleniumSuite'),   # running from the repo's Setup folder
+        (Join-Path $PSScriptRoot 'SeleniumSuite'),
+        (Join-Path $PSScriptRoot 'Testing_OpenMRS\SeleniumSuite')
+    )
+    foreach ($base in @("$env:USERPROFILE\Documents\UiPath", "$env:USERPROFILE\Documents", "$env:USERPROFILE\source\repos", $env:USERPROFILE)) {
+        $candidates += Join-Path $base 'Testing_OpenMRS\SeleniumSuite'
+    }
+    $candidates | Where-Object { Test-Path (Join-Path $_ 'run-scenario.ps1') } | Select-Object -First 1
+}
 
 function Find-Jdk {
     if ($env:JAVA_HOME -and (Test-Path "$env:JAVA_HOME\bin\javac.exe")) { return $env:JAVA_HOME }
@@ -91,7 +107,13 @@ if ($Install) {
 }
 
 if ($Prepare) {
-    Write-Host "`nPre-downloading suite dependencies ..." -ForegroundColor Cyan
+    $suite = Find-Suite
+    if (-not $suite -or -not (Test-Path (Join-Path $suite 'run-scenario.ps1'))) {
+        Write-Host "`nCan't find the SeleniumSuite folder. Clone Testing_OpenMRS first, then run again with" -ForegroundColor Red
+        Write-Host "  -Prepare -SuitePath <clone>\Testing_OpenMRS\SeleniumSuite" -ForegroundColor Red
+        exit 1
+    }
+    Write-Host "`nPre-downloading suite dependencies in $suite ..." -ForegroundColor Cyan
     $jdk = Find-Jdk; if ($jdk) { $env:JAVA_HOME = $jdk; $env:Path = "$jdk\bin;$env:Path" }
     $mvn = Find-Maven; $ruby = Find-Ruby; if ($ruby) { $env:Path = "$(Split-Path $ruby);$env:Path" }
     Push-Location "$suite\s1-login-java-testng"; if ($mvn) { & $mvn -q -B test-compile }; Pop-Location
