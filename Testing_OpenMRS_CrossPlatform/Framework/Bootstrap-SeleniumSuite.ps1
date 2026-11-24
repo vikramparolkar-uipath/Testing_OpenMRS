@@ -73,27 +73,39 @@ if (-not (Test-Path (Join-Path $dotnet 'dotnet.exe'))) {
     Log 'installed dotnet'
 }
 
+# Python: the NuGet "python" package is the full runtime (venv and pip included) as a plain zip. No installer,
+# because machine policy can block per-user MSI installs (exit 1625 on the Test Cloud VM pool).
 $python = Join-Path $Tools 'python'
 if (-not (Test-Path (Join-Path $python 'python.exe'))) {
-    $exe = Join-Path $dl 'python.exe'; Get-File 'https://www.python.org/ftp/python/3.12.8/python-3.12.8-amd64.exe' $exe
-    $p = Start-Process $exe -Wait -PassThru -ArgumentList '/quiet', 'InstallAllUsers=0', "TargetDir=$python", 'Include_launcher=0',
-        'PrependPath=0', 'Include_test=0', 'Shortcuts=0', 'AssociateFiles=0'
-    if (-not (Test-Path (Join-Path $python 'python.exe'))) { throw "Python install failed (exit $($p.ExitCode))" }
+    $zip = Join-Path $dl 'python.zip'; Get-File 'https://www.nuget.org/api/v2/package/python/3.12.8' $zip
+    $x = Join-Path $dl 'x_python'; Remove-Item -Recurse -Force $x -ErrorAction SilentlyContinue
+    Expand-Archive $zip $x
+    Remove-Item -Recurse -Force $python -ErrorAction SilentlyContinue   # a failed earlier attempt may have left a partial folder
+    Move-Item (Join-Path $x 'tools') $python
+    Remove-Item -Recurse -Force $x, $zip -ErrorAction SilentlyContinue
+    if (-not (Test-Path (Join-Path $python 'python.exe'))) { throw 'Python unpack failed' }
     Log 'installed python'
 }
 
+# Ruby: RubyInstaller's .7z archive, unpacked with the standalone 7zr.exe (again no installer)
 $ruby = Join-Path $Tools 'ruby'
 if (-not (Test-Path (Join-Path $ruby 'bin\ruby.exe'))) {
-    $url = 'https://github.com/oneclick/rubyinstaller2/releases/download/RubyInstaller-3.3.14-1/rubyinstaller-3.3.14-1-x64.exe'
+    $url = 'https://github.com/oneclick/rubyinstaller2/releases/download/RubyInstaller-3.3.14-1/rubyinstaller-3.3.14-1-x64.7z'
     try {
         $rel = Invoke-RestMethod 'https://api.github.com/repos/oneclick/rubyinstaller2/releases?per_page=20' -UseBasicParsing
         $hit = $rel | ForEach-Object { $_ } | ForEach-Object { $_.assets } | ForEach-Object { $_ } |
-            Where-Object { "$($_.name)" -match '^rubyinstaller-3\.3\.[\d-]+-x64\.exe$' } | Select-Object -First 1
+            Where-Object { "$($_.name)" -match '^rubyinstaller-3\.3\.[\d-]+-x64\.7z$' } | Select-Object -First 1
         if ($hit) { $url = $hit.browser_download_url }
     } catch { }
-    $exe = Join-Path $dl 'ruby.exe'; Get-File $url $exe
-    $p = Start-Process $exe -Wait -PassThru -ArgumentList '/verysilent', '/currentuser', "/dir=$ruby", '/mergetasks=!assocfiles,!modpath,!ridkinstall'
-    if (-not (Test-Path (Join-Path $ruby 'bin\ruby.exe'))) { throw "Ruby install failed (exit $($p.ExitCode))" }
+    $sevenZip = Join-Path $dl '7zr.exe'; Get-File 'https://www.7-zip.org/a/7zr.exe' $sevenZip
+    $arc = Join-Path $dl 'ruby.7z'; Get-File $url $arc
+    $x = Join-Path $dl 'x_ruby'; Remove-Item -Recurse -Force $x -ErrorAction SilentlyContinue
+    & $sevenZip x $arc "-o$x" -y | Out-Null
+    $inner = Get-ChildItem $x -Directory | Select-Object -First 1
+    Remove-Item -Recurse -Force $ruby -ErrorAction SilentlyContinue
+    Move-Item $inner.FullName $ruby
+    Remove-Item -Recurse -Force $x, $arc -ErrorAction SilentlyContinue
+    if (-not (Test-Path (Join-Path $ruby 'bin\ruby.exe'))) { throw 'Ruby unpack failed' }
     Log 'installed ruby'
 }
 if (-not (Test-Path (Join-Path $ruby 'bin\bundle.bat')) -and -not (Test-Path (Join-Path $ruby 'bin\bundle'))) {
