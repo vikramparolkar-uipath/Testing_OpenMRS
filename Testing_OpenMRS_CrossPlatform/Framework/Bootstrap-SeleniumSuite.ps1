@@ -56,7 +56,12 @@ Install-Zip 'https://archive.apache.org/dist/maven/maven-3/3.9.9/binaries/apache
 $node = Join-Path $Tools 'node'
 if (-not (Test-Path $node)) {
     $ver = 'v22.12.0'
-    try { $ver = (Invoke-RestMethod 'https://nodejs.org/dist/index.json' -UseBasicParsing | Where-Object { $_.lts } | Select-Object -First 1).version } catch { }
+    try {
+        # Windows PowerShell 5 passes a JSON array down the pipeline as ONE object: unwrap it first
+        $idx = Invoke-RestMethod 'https://nodejs.org/dist/index.json' -UseBasicParsing
+        $lts = $idx | ForEach-Object { $_ } | Where-Object { $_.lts -and "$($_.version)" -match '^v\d+\.\d+\.\d+$' } | Select-Object -First 1
+        if ($lts) { $ver = $lts.version }
+    } catch { }
     Install-Zip "https://nodejs.org/dist/$ver/node-$ver-win-x64.zip" 'node.zip' $node
 }
 
@@ -82,7 +87,8 @@ if (-not (Test-Path (Join-Path $ruby 'bin\ruby.exe'))) {
     $url = 'https://github.com/oneclick/rubyinstaller2/releases/download/RubyInstaller-3.3.14-1/rubyinstaller-3.3.14-1-x64.exe'
     try {
         $rel = Invoke-RestMethod 'https://api.github.com/repos/oneclick/rubyinstaller2/releases?per_page=20' -UseBasicParsing
-        $hit = $rel | ForEach-Object { $_.assets } | Where-Object { $_.name -match '^rubyinstaller-3\.3\.[\d-]+-x64\.exe$' } | Select-Object -First 1
+        $hit = $rel | ForEach-Object { $_ } | ForEach-Object { $_.assets } | ForEach-Object { $_ } |
+            Where-Object { "$($_.name)" -match '^rubyinstaller-3\.3\.[\d-]+-x64\.exe$' } | Select-Object -First 1
         if ($hit) { $url = $hit.browser_download_url }
     } catch { }
     $exe = Join-Path $dl 'ruby.exe'; Get-File $url $exe
